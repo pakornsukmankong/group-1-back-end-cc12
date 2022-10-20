@@ -25,7 +25,7 @@ router.post('/', async (req, res, next) => {
     });
 
     // console.log('Charge -->', charge);
-    return res.send({ amount: charge, status: charge.status });
+    return res.status(200).json({ amount: charge, status: charge.status });
   } catch (err) {
     console.log(err);
   }

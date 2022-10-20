@@ -7,7 +7,6 @@ const { Op } = require('sequelize');
 const AppError = require('../utils/appError');
 const { User } = require('../models');
 
-
 const client = require('twilio')(
 	process.env.ACCOUNT_SID, // process.env.ACCOUNT_SID,
 	process.env.AUTH_TOKEN // process.env.AUTH_TOKEN
@@ -38,7 +37,7 @@ exports.otp = async (req, res, next) => {
 
 			res.status(200).json({
 				message: `Verification is sent to 0${phoneNumber}`,
-				data: customerPhoneNumber.to,
+				customerPhoneNumber: customerPhoneNumber.to,
 			});
 		} catch (err) {
 			next(err);
@@ -68,7 +67,7 @@ exports.verify = async (req, res, next) => {
 				console.log('User is Verified!!');
 				res.status(200).json({
 					message: 'User is Verified!!',
-					data,
+					statusOtp: data.status,
 				});
 			}
 		} catch (err) {
@@ -78,8 +77,6 @@ exports.verify = async (req, res, next) => {
 	} else {
 		res.status(400).json({
 			message: 'Wrong phone number or code :(',
-			// phonenumber: req.query.phonenumber,
-			// data,
 		});
 	}
 };
@@ -158,4 +155,3 @@ exports.getMe = async (req, res) => {
 		next(err);
 	}
 };
-

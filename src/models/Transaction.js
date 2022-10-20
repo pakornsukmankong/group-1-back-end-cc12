@@ -13,15 +13,16 @@ module.exports = (sequelize, DataTypes) => {
     { underscored: true }
   );
 
-  Transaction.associate = (db) => {
-    Transaction.belongsTo(db.Booking, {
-      foreignKey: {
-        name: 'transactionId',
-        allowNull: false,
-      },
-      onDelete: 'RESTRICT',
-    });
-  };
+
+	Transaction.associate = (db) => {
+		Transaction.belongsTo(db.Booking, {
+			foreignKey: {
+				name: 'bookingId',
+				allowNull: false,
+			},
+			onDelete: 'RESTRICT',
+		});
+	};
 
   return Transaction;
 };

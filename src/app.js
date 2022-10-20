@@ -10,7 +10,8 @@ const morgan = require('morgan');
 const notFound = require('./middlewares/notFound');
 const error = require('./middlewares/error');
 const authRoute = require('./route/authRoute');
-const paymentRoute = require('./route/paymentRoute')
+const paymentRoute = require('./route/paymentRoute');
+const authenticate = require('./middlewares/authenticate');
 
 let omise = require('omise')({
   publicKey: process.env.OMISE_PUBLIC_KEY,
@@ -29,7 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', authRoute);
 
-app.use('/payment', paymentRoute);
+app.use('/payment', authenticate, paymentRoute);
 
 app.use(notFound);
 app.use(error);

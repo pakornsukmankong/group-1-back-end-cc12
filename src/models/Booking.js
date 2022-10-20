@@ -59,9 +59,9 @@ module.exports = (sequelize, DataTypes) => {
 			onDelete: 'RESTRICT',
 		});
 
-		Booking.belongsTo(db.Transaction, {
+		Booking.hasOne(db.Transaction, {
 			foreignKey: {
-				name: 'transactionId',
+				name: 'bookingId',
 				allowNull: false,
 			},
 			onDelete: 'RESTRICT',

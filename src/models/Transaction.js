@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 	);
 
 	Transaction.associate = (db) => {
-		Transaction.hasOne(db.Booking, {
+		Transaction.belongsTo(db.Booking, {
 			foreignKey: {
 				name: 'bookingId',
 				allowNull: false,

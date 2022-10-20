@@ -9,8 +9,9 @@ const morgan = require('morgan');
 const notFound = require('./middlewares/notFound');
 const error = require('./middlewares/error');
 const authRoute = require('./route/authRoute');
+const paymentRoute = require('./route/paymentRoute')
 
-var omise = require('omise')({
+let omise = require('omise')({
   publicKey: process.env.OMISE_PUBLIC_KEY,
   secretKey: process.env.OMISE_SECRET_KEY,
 });
@@ -27,48 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', authRoute);
 
-// const createCharge = async () => {
-//   const customer = await omise.customers.create({
-//     email: 'john.doe@example.com',
-//     description: 'John Doe (id: 30)',
-//     card: 'tokn_test_5tiq36h1gthnqzqza1z', //token.id,
-//   });
-
-//   const charge = await omise.charges.create({
-//     amount: 2000,
-//     currency: 'thb',
-//     customer: customer.id,
-//   });
-
-//   console.log('Charge -->', charge);
-// };
-
-// createCharge()
-
-app.post('/checkout-credit-card', async (req, res, next) => {
-  const { email, name, amount, token } = req.body;
-  console.log(req.body);
-  try {
-    const customer = await omise.customers.create({
-      email,
-      description: name,
-      card: token,
-    });
-
-    const charge = await omise.charges.create({
-      amount,
-      currency: 'thb',
-      customer: customer.id,
-    });
-
-    console.log('Charge -->', charge);
-    res.status(200).json({ amount: charge, status: charge.status });
-  } catch (err) {
-    console.log(err);
-  }
-
-  next();
-});
+app.use('/payment', paymentRoute);
 
 app.use(notFound);
 app.use(error);

@@ -1,4 +1,4 @@
-// const validator = require('validator');
+const validator = require('validator');
 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -65,14 +65,42 @@ exports.verify = async (req, res, next) => {
 
 			if (data.status === 'approved') {
 				console.log('User is Verified!!');
-				res.status(200).json({
-					message: 'User is Verified!!',
-					statusOtp: data.status,
-				});
+
+				//  #############################################
+				try {
+					const user = await User.findOne({ where: { phone: phoneNumber } });
+					if (user) {
+						const token = genToken({ id: user.id });
+						res.status(201).json({
+							message: 'User is Verified!!',
+							token: token,
+							statusOtp: data.status,
+							user,
+						});
+					}
+
+					if (!user) {
+						res.status(201).json({
+							message: 'User is Verified!! but not regis yet',
+							statusOtp: data.status,
+						});
+					}
+				} catch (err) {
+					next(err);
+				}
+
+				//  #############################################
+
+				// res.status(200).json({
+				// 	message: 'User is Verified!!',
+				// 	data: data,
+				// 	statusOtp: data.status,
+				// });
 			}
 		} catch (err) {
 			console.log('User Varifired Error');
 			res.status(404).send('User Varifired Error');
+			data;
 		}
 	} else {
 		res.status(400).json({
@@ -90,11 +118,14 @@ const genToken = (payload) =>
 
 exports.register = async (req, res, next) => {
 	try {
-		const { firstName, lastName, email, password, phone } = req.body;
-		if (firstName === '') {
+		const { firstName, lastName, email, password, phoneNumber } = req.body;
+
+		console.log(req.body);
+
+		if (!firstName) {
 			throw new AppError('firstName is invalid', 400);
 		}
-		if (lastName === '') {
+		if (!lastName) {
 			throw new AppError('lastName is invalid', 400);
 		}
 		if (!email) {
@@ -114,35 +145,12 @@ exports.register = async (req, res, next) => {
 			firstName,
 			lastName,
 			email: isEmail && email,
-			phone: phone || null,
+			phone: phoneNumber || null,
 			password: hashpassword,
 		});
 
 		const token = genToken({ id: user.id });
 		res.status(201).json({ token });
-	} catch (err) {
-		next(err);
-	}
-};
-
-exports.login = async (req, res, next) => {
-	try {
-		const { email, password } = req.body;
-		if (typeof email !== 'string' || typeof password !== 'string') {
-			throw new AppError('email or password must not string', 400);
-		}
-		const user = await User.findOne({
-			where: { [Op.or]: [{ email: email }] },
-		});
-		if (!user) {
-			throw new AppError('email address or mobile or password is invalid', 400);
-		}
-		const isCorrect = await bcrypt.compare(password, user.password);
-		if (!isCorrect) {
-			throw new AppError('email or password is invalid', 400);
-		}
-		const token = genToken({ id: user.id });
-		res.status(200).json({ token });
 	} catch (err) {
 		next(err);
 	}

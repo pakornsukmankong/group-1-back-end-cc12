@@ -12,4 +12,11 @@ router.post('/sendotp', authContorller.otp);
 router.post('/verify', authContorller.verify);
 router.post('/loginwithemail', authContorller.loginWithEmail);
 
+router.patch(
+	'/updateprofile',
+	authenticate,
+	upload.single('profileImage'),
+	authContorller.updateProfile
+);
+
 module.exports = router;

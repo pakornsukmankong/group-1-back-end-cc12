@@ -180,3 +180,75 @@ exports.loginWithEmail = async (req, res, next) => {
 		next(err);
 	}
 };
+
+exports.updateProfile = async (req, res, next) => {
+	try {
+		const { id } = req.user;
+		const {
+			firstName,
+			lastName,
+			gender,
+			phoneNumber,
+			email,
+			currentPassword,
+			newPassword,
+		} = req.body;
+
+		// console.log(currentPassword, 'currentPassword');
+		// console.log(newPassword, 'newPassword');
+
+		const data = {};
+
+		if (firstName) {
+			data.firstName = firstName;
+		}
+
+		if (lastName) {
+			data.lastName = lastName;
+		}
+
+		if (gender) {
+			data.gender = gender;
+		}
+
+		if (phoneNumber) {
+			data.phone = phoneNumber;
+		}
+
+		if (email) {
+			data.email = email;
+		}
+
+		if (currentPassword) {
+			const user = await User.findOne({
+				where: { id },
+			});
+			const correctPassword = await bcrypt.compare(
+				currentPassword,
+				user.password
+			);
+
+			if (!correctPassword) {
+				return res
+					.status(400)
+					.json({ message: "Current Password Isn't Corrct " });
+			}
+
+			const hashNewPassword = await bcrypt.hash(newPassword, 10);
+
+			data.password = hashNewPassword;
+		}
+
+		if (req.file) {
+			profileImage = await cloudinary.upload(req.file.path);
+		}
+
+		const updateUser = await User.update(data, {
+			where: { id },
+		});
+
+		res.status(200).json({ message: 'Update Success', updateUser });
+	} catch (err) {
+		next(err);
+	}
+};

@@ -5,6 +5,6 @@ const authenticate = require('../middlewares/authenticate');
 
 const router = express.Router();
 
-router.post('/createhost', hostController.createHost);
+router.post('/createhost', authenticate, hostController.createHost);
 
 module.exports = router;

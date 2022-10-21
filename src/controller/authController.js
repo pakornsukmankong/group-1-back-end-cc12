@@ -121,7 +121,7 @@ exports.register = async (req, res, next) => {
 	try {
 		const { firstName, lastName, email, password, phoneNumber } = req.body;
 
-		console.log(req.body);
+		// console.log(req.body);
 
 		if (!firstName) {
 			throw new AppError('firstName is invalid', 400);
@@ -151,6 +151,7 @@ exports.register = async (req, res, next) => {
 		});
 
 		const token = genToken({ id: user.id });
+		console.log(token);
 		res.status(201).json({ token });
 	} catch (err) {
 		next(err);
@@ -160,6 +161,22 @@ exports.register = async (req, res, next) => {
 exports.getMe = async (req, res) => {
 	try {
 		res.status(200).json({ user: req.user });
+	} catch (err) {
+		next(err);
+	}
+};
+
+exports.loginWithEmail = async (req, res, next) => {
+	const { email } = req.body;
+	console.log(email);
+
+	try {
+		const user = await User.findOne({ where: { email: email } });
+		if (user) {
+			const token = genToken({ id: user.id });
+			return res.status(200).json({ token });
+		}
+		return res.status(400).json({ message: 'Invalid Credential' });
 	} catch (err) {
 		next(err);
 	}

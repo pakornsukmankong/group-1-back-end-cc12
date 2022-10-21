@@ -31,13 +31,10 @@ module.exports = (sequelize, DataTypes) => {
 				},
 			},
 			profileImage: DataTypes.STRING,
+			gender: DataTypes.STRING,
 			phone: {
 				type: DataTypes.STRING,
 				unique: true,
-				allowNull: false,
-				validate: {
-					notEmpty: true,
-				},
 			},
 			about: DataTypes.STRING,
 			// <== Optional ===>

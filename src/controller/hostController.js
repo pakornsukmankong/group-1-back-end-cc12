@@ -2,7 +2,7 @@ const AppError = require('../utils/appError');
 const {
 	Property,
 	User,
-	Provice,
+	Province,
 	District,
 	Subdistrict,
 	PropertyType,
@@ -19,16 +19,16 @@ exports.createHost = async (req, res, next) => {
 			bedQty,
 			bedRoomQty,
 			bathRoomQty,
-			pricePerDay,
+			pricePerDate,
 			roomAvaliable,
-			userHostId,
 			provinceId,
 			districtId,
 			propertyTypeId,
 			subdistrictId,
 		} = req.body;
 
-		console.log(body);
+		// console.log(req.body);
+
 		if (!propertyName || !String(propertyName)) {
 			throw new AppError('propertyName is invalid', 400);
 		}
@@ -44,7 +44,7 @@ exports.createHost = async (req, res, next) => {
 		if (!bathRoomQty || !String(bathRoomQty)) {
 			throw new AppError('Please include the number of bathrooms.', 400);
 		}
-		if (!pricePerDay || !String(bathRoomQty)) {
+		if (!pricePerDate || !String(bathRoomQty)) {
 			throw new AppError('Please include the room rate per day', 400);
 		}
 		if (!roomAvaliable || !String(bathRoomQty)) {
@@ -52,13 +52,18 @@ exports.createHost = async (req, res, next) => {
 		}
 
 		// id from model
-		const user = User.findOne({ where: { id: req.user.id } });
-		const province = Provice.findOne({ where: { id: provinceId } });
-		const district = District.findOne({ where: { id: districtId } });
-		const propertyType = PropertyType.findOne({
+		const user = await User.findOne({ where: { id: req.user.id } });
+		console.log(user, 'user');
+		const province = await Province.findOne({ where: { id: provinceId } });
+		console.log(province, 'province');
+		const district = await District.findOne({ where: { id: districtId } });
+		// console.log(req);
+		const propertyType = await PropertyType.findOne({
 			where: { id: propertyTypeId },
 		});
-		const subdistrict = Subdistrict.findOne({ where: { id: subdistrictId } });
+		const subdistrict = await Subdistrict.findOne({
+			where: { id: subdistrictId },
+		});
 
 		// host create House
 		const host = await Property.create({
@@ -70,7 +75,7 @@ exports.createHost = async (req, res, next) => {
 			bedQty,
 			bedRoomQty,
 			bathRoomQty,
-			pricePerDay,
+			pricePerDate,
 			roomAvaliable,
 			userHostId: user.id,
 			provinceId: province.id,
@@ -78,7 +83,7 @@ exports.createHost = async (req, res, next) => {
 			subdistrictId: subdistrict.id,
 			propertyTypeId: propertyType.id,
 		});
-		res.status(201).json(host);
+		res.status(201).json({ host });
 	} catch (err) {
 		next(err);
 	}

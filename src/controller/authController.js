@@ -16,6 +16,7 @@ const client = require('twilio')(
 
 exports.otp = async (req, res, next) => {
 	let { phoneNumber } = req.body;
+
 	// console.log(phoneNumber);
 
 	if (phoneNumber.startsWith('0')) {

@@ -11,7 +11,7 @@ const error = require('./middlewares/error');
 const authRoute = require('./route/authRoute');
 const paymentRoute = require('./route/paymentRoute');
 const authenticate = require('./middlewares/authenticate');
-
+const hostRoute = require('./route/hostRoute');
 let omise = require('omise')({
 	publicKey: process.env.OMISE_PUBLIC_KEY,
 	secretKey: process.env.OMISE_SECRET_KEY,
@@ -28,6 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', authRoute);
+app.use('/host', hostRoute);
 
 app.use('/payment', authenticate, paymentRoute);
 

@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
 					notEmpty: true,
 				},
 			},
-			pricePerDay: {
+			pricePerDate: {
 				type: DataTypes.STRING,
 				allowNull: false,
 				validate: {

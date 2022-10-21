@@ -53,11 +53,11 @@ exports.createHost = async (req, res, next) => {
 
 		// id from model
 		const user = await User.findOne({ where: { id: req.user.id } });
-		console.log(user, 'user');
+
 		const province = await Province.findOne({ where: { id: provinceId } });
-		console.log(province, 'province');
+
 		const district = await District.findOne({ where: { id: districtId } });
-		// console.log(req);
+
 		const propertyType = await PropertyType.findOne({
 			where: { id: propertyTypeId },
 		});
@@ -84,6 +84,53 @@ exports.createHost = async (req, res, next) => {
 			propertyTypeId: propertyType.id,
 		});
 		res.status(201).json({ host });
+	} catch (err) {
+		next(err);
+	}
+};
+
+exports.deletehost = async (req, res, next) => {
+	try {
+		console.log('delete');
+		const { id } = req.params;
+		const post = await Property.destroy({
+			where: { id, userHostId: req.user.id },
+		});
+		console.log(post);
+		res.status(201).json({ message: 'success delete' });
+	} catch (err) {
+		next(err);
+	}
+};
+
+exports.edithost = async (req, res, next) => {
+	try {
+		const data = { userId: req.user.id };
+		const { id } = req.params;
+		const {
+			propertyName,
+			description,
+			address,
+			latitude,
+			longitude,
+			bedQty,
+			bedRoomQty,
+			bathRoomQty,
+			pricePerDate,
+			roomAvaliable,
+			provinceId,
+			districtId,
+			propertyTypeId,
+			subdistrictId,
+		} = req.body;
+
+		if (propertyName && propertyName.trim()) {
+			data.propertyName = propertyName;
+		}
+		// if()
+
+		console.log(post);
+		res.status(201).json({ host }, { message: 'success update' });
 	} catch (err) {
 		next(err);
 	}

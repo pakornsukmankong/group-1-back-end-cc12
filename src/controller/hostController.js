@@ -102,7 +102,7 @@ exports.deletehost = async (req, res, next) => {
 		next(err);
 	}
 };
-
+// feature edit
 exports.edithost = async (req, res, next) => {
 	try {
 		const data = { userId: req.user.id };
@@ -123,14 +123,42 @@ exports.edithost = async (req, res, next) => {
 			propertyTypeId,
 			subdistrictId,
 		} = req.body;
-
 		if (propertyName && propertyName.trim()) {
 			data.propertyName = propertyName;
 		}
-		// if()
-
-		console.log(post);
-		res.status(201).json({ host }, { message: 'success update' });
+		if (description && description.trim()) {
+			data.description = description;
+		}
+		if (address && address.trim()) {
+			data.address = address;
+		}
+		if (latitude) {
+			data.latitude = latitude;
+		}
+		if (longitude) {
+			data.longitude = longitude;
+		}
+		if (bedQty) {
+			data.bedQty = bedQty;
+		}
+		if (bedRoomQty) {
+			data.bedRoomQty = bedRoomQty;
+		}
+		if (bathRoomQty) {
+			data.bathRoomQty = bathRoomQty;
+		}
+		if (pricePerDate) {
+			data.pricePerDate = pricePerDate;
+		}
+		if (roomAvaliable) {
+			data.roomAvaliable = roomAvaliable;
+		}
+		// id from model form
+		const findedProperty = await Property.findOne({ where: { id } });
+		const post = await Property.update(data, {
+			where: { id: findedProperty.id },
+		});
+		res.status(201).json({ post });
 	} catch (err) {
 		next(err);
 	}

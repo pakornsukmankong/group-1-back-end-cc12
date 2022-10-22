@@ -102,7 +102,7 @@ exports.deletehost = async (req, res, next) => {
 		next(err);
 	}
 };
-
+// feature edit
 exports.edithost = async (req, res, next) => {
 	try {
 		const data = { userId: req.user.id };

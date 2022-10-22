@@ -20,7 +20,7 @@ exports.otp = async (req, res, next) => {
 	// console.log(phoneNumber);
 
 	if (phoneNumber.startsWith('0')) {
-		phoneNumber = phoneNumber.split(0)[1];
+		phoneNumber = phoneNumber.slice(1);
 	}
 
 	// console.log(phoneNumber);
@@ -101,7 +101,6 @@ exports.verify = async (req, res, next) => {
 		} catch (err) {
 			console.log('User Varifired Error');
 			res.status(404).send('User Varifired Error');
-			data;
 		}
 	} else {
 		res.status(400).json({
@@ -176,7 +175,7 @@ exports.loginWithEmail = async (req, res, next) => {
 			const token = genToken({ id: user.id });
 			return res.status(200).json({ token });
 		}
-		return res.status(400).json({ message: 'Invalid Credential' });
+		res.status(400).json({ message: 'Invalid Credential' });
 	} catch (err) {
 		next(err);
 	}

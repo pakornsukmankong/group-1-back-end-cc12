@@ -91,13 +91,12 @@ exports.verify = async (req, res, next) => {
 				}
 
 				//  #############################################
-
-				// res.status(200).json({
-				// 	message: 'User is Verified!!',
-				// 	data: data,
-				// 	statusOtp: data.status,
-				// });
+			} else {
+				console.log('User Varifired Error')
+				res.status(400).json({message:'User Varifired Error'})
 			}
+
+			
 		} catch (err) {
 			console.log('User Varifired Error');
 			res.status(404).send('User Varifired Error');

@@ -44,7 +44,6 @@ exports.getPropertyList = async (req, res, next) => {
       order: [['createdAt', 'ASC']]
     });
     res.status(200).json({ data: propertyType });
-    return propertyType;
   } catch (err) {
     next(err);
   }

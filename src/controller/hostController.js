@@ -76,7 +76,7 @@ exports.createHost = async (req, res, next) => {
       bedRoomQty,
       bathRoomQty,
       pricePerDate,
-      roomAvaliable,
+      roomAvailable,
       userHostId: user.id,
       provinceId: province.id,
       districtId: district.id,
@@ -164,35 +164,19 @@ exports.edithost = async (req, res, next) => {
   }
 };
 
-exports.createPropertyType = async (req, res, next) => {
+exports.createHostByPropertyType = async (req, res, next) => {
   try {
-    const { createList, propertyTypeName, propertyTypeIconImage } = req.body;
+    const { propertyTypeId } = req.body;
 
-    // console.log(req.body);
-
-    if (!propertyName || !String(propertyName)) {
-      throw new AppError('propertyName is invalid', 400);
+    if (!propertyTypeId || !String(propertyTypeId)) {
+      throw new AppError('propertyTypeId is invalid', 400);
     }
 
-    // host create House
-    // const host = await Property.create({
-    // 	propertyName,
-    // 	description: description || null,
-    // 	address,
-    // 	latitude: latitude || null,
-    // 	longitude: longitude || null,
-    // 	bedQty,
-    // 	bedRoomQty,
-    // 	bathRoomQty,
-    // 	pricePerDate,
-    // 	roomAvaliable,
-    // 	userHostId: user.id,
-    // 	provinceId: province.id,
-    // 	districtId: district.id,
-    // 	subdistrictId: subdistrict.id,
-    // 	propertyTypeId: propertyType.id,
-    // });
-    // res.status(201).json({ host });
+    // create property type id
+    const host = await Property.create({
+      propertyTypeId: propertyTypeId
+    });
+    res.status(201).json({ host });
   } catch (err) {
     next(err);
   }

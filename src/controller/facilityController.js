@@ -3,21 +3,7 @@ const { Facility } = require('../models');
 
 exports.createFacility = async (req, res, next) => {
   try {
-    const { facilityName, facilityIconImage, list } = req.body;
-
-    if (list && list.length) {
-      const dataList = list.map((facility) => {
-        return {
-          facilityName: facility.facilityName,
-          facilityIconImage: facility.facilityIconImage
-        };
-      });
-
-      const resList = await Facility.bulkCreate(dataList);
-      res.status(200).json({
-        data: resList
-      });
-    }
+    const { facilityName, facilityIconImage } = req.body;
 
     if (!facilityName || !String(facilityName)) {
       throw new AppError('facilityName is invalid', 400);
@@ -38,6 +24,33 @@ exports.createFacility = async (req, res, next) => {
   }
 };
 
+exports.createFacilityByList = async (req, res, next) => {
+  try {
+    const { list } = req.body;
+
+    if (!Array.isArray(list)) {
+      throw new AppError('list is invalid', 400);
+    }
+
+    if (list && list.length) {
+      const dataList = list.map((facility) => {
+        return {
+          facilityName: facility.facilityName,
+          facilityIconImage: facility.facilityIconImage
+        };
+      });
+      const resList = await Facility.bulkCreate(dataList);
+      res.status(200).json({
+        data: resList
+      });
+    } else {
+      res.status(500).json({ msg: 'please facility list' });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.getFacilityList = async (req, res, next) => {
   try {
     const facility = await Facility.findAll({
@@ -49,7 +62,7 @@ exports.getFacilityList = async (req, res, next) => {
   }
 };
 
-// Mock data for facility
+// Mock data for facility list
 // {
 //   "list": [
 //       {

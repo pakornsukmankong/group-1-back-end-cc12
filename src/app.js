@@ -13,6 +13,7 @@ const reserveRoute = require('./route/reserveRoute');
 const paymentRoute = require('./route/paymentRoute');
 const propertyTypeRoute = require('./route/propertyTypeRoute');
 const facilityRoute = require('./route/facilityRoute');
+const categoryRoute = require('./route/categoryRoute');
 
 const hostRoute = require('./route/hostRoute');
 let omise = require('omise')({
@@ -40,6 +41,7 @@ app.use('/payment', paymentRoute);
 
 app.use('/property-type', propertyTypeRoute);
 app.use('/facility', facilityRoute);
+app.use('/category', categoryRoute);
 
 app.use(notFound);
 app.use(error);

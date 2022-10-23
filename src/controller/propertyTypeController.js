@@ -3,9 +3,36 @@ const { PropertyType } = require('../models');
 
 exports.createPropertyType = async (req, res, next) => {
   try {
-    const { propertyTypeName, propertyTypeIconImage, list } = req.body;
+    const { propertyTypeName, propertyTypeIconImage } = req.body;
 
-    if (list && list.length) {
+    if (!propertyTypeName || !String(propertyTypeName)) {
+      throw new AppError('propertyTypeName is invalid', 400);
+    }
+
+    if (!propertyTypeIconImage || !String(propertyTypeIconImage)) {
+      throw new AppError('propertyTypeIconImage is invalid', 400);
+    }
+
+    // create property type one
+    const propertyType = await PropertyType.create({
+      propertyTypeName: propertyTypeName || null,
+      propertyTypeIconImage
+    });
+    res.status(201).json({ propertyType });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.createPropertyTypeByList = async (req, res, next) => {
+  try {
+    const { list } = req.body;
+
+    if (!Array.isArray(list)) {
+      throw new AppError('list is invalid', 400);
+    }
+
+    if (list) {
       const dataList = list.map((propertyType) => {
         return {
           propertyTypeName: propertyType.propertyTypeName,
@@ -17,22 +44,9 @@ exports.createPropertyType = async (req, res, next) => {
       res.status(200).json({
         data: resList
       });
+    } else {
+      res.status(500).json({ msg: 'please property type list' });
     }
-
-    if (!propertyTypeName || !String(propertyTypeName)) {
-      throw new AppError('propertyTypeName is invalid', 400);
-    }
-
-    if (!propertyTypeIconImage || !String(propertyTypeIconImage)) {
-      throw new AppError('propertyTypeIconImage is invalid', 400);
-    }
-
-    // create property type one
-    const propertyType = await Property.create({
-      propertyTypeName: propertyTypeName || null,
-      propertyTypeIconImage
-    });
-    res.status(201).json({ propertyType });
   } catch (err) {
     next(err);
   }

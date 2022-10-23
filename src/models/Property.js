@@ -48,13 +48,6 @@ module.exports = (sequelize, DataTypes) => {
 					notEmpty: true,
 				},
 			},
-			roomAvaliable: {
-				type: DataTypes.STRING,
-				allowNull: false,
-				validate: {
-					notEmpty: true,
-				},
-			},
 		},
 		{ underscored: true }
 	);
@@ -89,7 +82,7 @@ module.exports = (sequelize, DataTypes) => {
 				name: 'propertyId',
 				allowNull: false,
 			},
-			onDelete: 'RESTRICT',
+			onDelete: 'CASCADE',
 		});
 
 		Property.hasMany(db.PropertyImage, {
@@ -116,17 +109,9 @@ module.exports = (sequelize, DataTypes) => {
 			onDelete: 'RESTRICT',
 		});
 
-		Property.belongsTo(db.Province, {
+		Property.hasMany(db.Wishlist, {
 			foreignKey: {
-				name: 'provinceId',
-				allowNull: false,
-			},
-			onDelete: 'RESTRICT',
-		});
-
-		Property.belongsTo(db.District, {
-			foreignKey: {
-				name: 'districtId',
+				name: 'propertyId',
 				allowNull: false,
 			},
 			onDelete: 'RESTRICT',

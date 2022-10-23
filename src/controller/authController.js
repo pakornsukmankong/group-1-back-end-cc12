@@ -92,11 +92,9 @@ exports.verify = async (req, res, next) => {
 
 				//  #############################################
 			} else {
-				console.log('User Varifired Error')
-				res.status(400).json({message:'User Varifired Error'})
+				console.log('User Varifired Error');
+				res.status(400).json({ message: 'User Varifired Error' });
 			}
-
-			
 		} catch (err) {
 			console.log('User Varifired Error');
 			res.status(404).send('User Varifired Error');
@@ -228,9 +226,7 @@ exports.updateProfile = async (req, res, next) => {
 			);
 
 			if (!correctPassword) {
-				return res
-					.status(400)
-					.json({ message: "Current Password Isn't Corrct " });
+				throw new AppError('Password is not correct', 400);
 			}
 
 			const hashNewPassword = await bcrypt.hash(newPassword, 10);

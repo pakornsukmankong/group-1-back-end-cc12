@@ -43,13 +43,27 @@ exports.getReserveRoom = async (req, res, next) => {
         {
           model: Property,
           attributes: ['propertyName'],
-          include: { model: PropertyImage, attributes: ['propertyImage']},
+          include: { model: PropertyImage, attributes: ['propertyImage'] },
         },
       ],
     })
     console.log(reservedRoom)
 
     res.status(201).json({ room: reservedRoom })
+  } catch (err) {
+    next(err)
+  }
+}
+
+exports.deleteReserve = async (req, res, next) => {
+  try {
+    await Reserve.destroy({
+      where: {
+        // userId: req.user.id,
+        userId: 4,
+      },
+    })
+    return res.status(200).json(req.omise)
   } catch (err) {
     next(err)
   }

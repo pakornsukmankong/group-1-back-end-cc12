@@ -11,6 +11,7 @@ const error = require('./middlewares/error');
 const authRoute = require('./route/authRoute');
 const reserveRoute = require('./route/reserveRoute');
 const paymentRoute = require('./route/paymentRoute');
+const propertyRoute = require('./route/propertyRoute');
 
 const hostRoute = require('./route/hostRoute');
 let omise = require('omise')({
@@ -30,6 +31,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', authRoute);
 app.use('/host', hostRoute);
+//app.use ('/host',authenticate ,hostRoute)
+app.use('/property', propertyRoute);
 
 app.use('/reserve', reserveRoute);
 // app.use('/reserve', authenticate, reserveRoute);

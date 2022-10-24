@@ -10,7 +10,7 @@ const {
 	PropertyReview,
 	Wishlist,
 } = require('../models');
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 
 // const userSeed = async () => {
 // 	const hashpassword = await bcrypt.hash('123456', 12);
@@ -139,7 +139,6 @@ const bcrypt = require('bcryptjs');
 // 			pricePerDate: '฿7,365',
 // 			roomAvaliable: '1',
 // 			userHostId: 4,
-
 // 			propertyTypeId: 4,
 // 		},
 // 		{

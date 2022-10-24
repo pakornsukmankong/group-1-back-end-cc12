@@ -18,4 +18,8 @@ router.patch(
 	authContorller.updateProfile
 );
 
+// wishlist
+router.post('/addwishlist', authenticate, authContorller.addWishList);
+router.delete('/removewishlist', authenticate, authContorller.removeWishList);
+
 module.exports = router;

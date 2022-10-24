@@ -32,7 +32,7 @@ app.use('/host', hostRoute)
 app.use('/property', propertyRoute)
 
 app.use('/rooms', authenticate, reserveRoute)
-app.use('/payment', paymentRoute)
+app.use('/payment', authenticate, paymentRoute)
 // app.use('/payment', authenticate, paymentRoute);
 
 app.use(notFound)

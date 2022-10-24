@@ -27,10 +27,9 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', authRoute);
 app.use('/host', hostRoute);
-//app.use ('/host',authenticate ,hostRoute)
-app.use('/property', propertyRoute);
 
 app.use('/reserve', reserveRoute);
+app.use('/property', propertyRoute);
 // app.use('/reserve', authenticate, reserveRoute);
 app.use('/payment', paymentRoute);
 // app.use('/payment', authenticate, paymentRoute);

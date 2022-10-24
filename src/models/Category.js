@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     Category.hasMany(db.Property, {
       foreignKey: {
         name: 'categoryId',
-        allowNull: false
+        allowNull: true
       },
       onDelete: 'RESTRICT'
     });

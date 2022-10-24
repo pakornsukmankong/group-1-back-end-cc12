@@ -65,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
     Property.hasMany(db.PropertyImage, {
       foreignKey: {
         name: 'propertyId',
-        allowNull: false
+        allowNull: true
       },
       onDelete: 'RESTRICT'
     });
@@ -89,7 +89,7 @@ module.exports = (sequelize, DataTypes) => {
     Property.belongsTo(db.Category, {
       foreignKey: {
         name: 'categoryId',
-        allowNull: false
+        allowNull: true
       },
       onDelete: 'RESTRICT'
     });

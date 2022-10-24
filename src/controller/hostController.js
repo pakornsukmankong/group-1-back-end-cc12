@@ -174,7 +174,40 @@ exports.createHostByPropertyType = async (req, res, next) => {
 
     // create property type id
     const host = await Property.create({
+      userHostId: req.user.id, // req.user.id from authenticate
       propertyTypeId: propertyTypeId
+    });
+    res.status(201).json({ host });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.updateLocation = async (req, res, next) => {
+  try {
+    const { propertyId, address, latitude, longitude } = req.body;
+
+    if (!address || !String(address)) {
+      throw new AppError('address is invalid', 400);
+    }
+
+    if (!latitude || !String(latitude)) {
+      throw new AppError('latitude is invalid', 400);
+    }
+
+    if (!longitude || !String(longitude)) {
+      throw new AppError('longitude is invalid', 400);
+    }
+
+    const data = {
+      address,
+      latitude,
+      longitude
+    };
+
+    // create property location
+    const host = await Property.update(data, {
+      where: { id: propertyId }
     });
     res.status(201).json({ host });
   } catch (err) {

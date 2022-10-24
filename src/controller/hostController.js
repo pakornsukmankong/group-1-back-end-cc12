@@ -21,10 +21,7 @@ exports.createHost = async (req, res, next) => {
 			bathRoomQty,
 			pricePerDate,
 			roomAvaliable,
-			provinceId,
-			districtId,
 			propertyTypeId,
-			subdistrictId,
 		} = req.body;
 
 		// console.log(req.body);
@@ -54,15 +51,8 @@ exports.createHost = async (req, res, next) => {
 		// id from model
 		const user = await User.findOne({ where: { id: req.user.id } });
 
-		const province = await Province.findOne({ where: { id: provinceId } });
-
-		const district = await District.findOne({ where: { id: districtId } });
-
 		const propertyType = await PropertyType.findOne({
 			where: { id: propertyTypeId },
-		});
-		const subdistrict = await Subdistrict.findOne({
-			where: { id: subdistrictId },
 		});
 
 		// host create House
@@ -78,9 +68,6 @@ exports.createHost = async (req, res, next) => {
 			pricePerDate,
 			roomAvaliable,
 			userHostId: user.id,
-			provinceId: province.id,
-			districtId: district.id,
-			subdistrictId: subdistrict.id,
 			propertyTypeId: propertyType.id,
 		});
 		res.status(201).json({ host });
@@ -118,10 +105,7 @@ exports.edithost = async (req, res, next) => {
 			bathRoomQty,
 			pricePerDate,
 			roomAvaliable,
-			provinceId,
-			districtId,
 			propertyTypeId,
-			subdistrictId,
 		} = req.body;
 		if (propertyName && propertyName.trim()) {
 			data.propertyName = propertyName;

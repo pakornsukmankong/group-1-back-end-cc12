@@ -3,7 +3,15 @@ const { Property, User, PropertyType } = require('../models');
 exports.getAllProperty = async (req, res, next) => {
 	try {
 		const post = await Property.findAll({
-			include: { model: User, attributes: { exclude: 'password' } },
+			attributes: { exclude: ['userHostId', 'propertyTypeId'] },
+
+			include: [
+				{
+					model: User,
+					attributes: { exclude: 'password' },
+				},
+				{ model: PropertyType },
+			],
 		});
 
 		res.status(201).json({ post });
@@ -17,6 +25,7 @@ exports.getProperty = async (req, res, next) => {
 		const { id } = req.params;
 		const post = await Property.findOne({
 			where: { id },
+			attributes: { exclude: ['userHostId', 'propertyTypeId'] },
 			include: [
 				{
 					model: User,
@@ -35,7 +44,7 @@ exports.getPropertyByUser = async (req, res, next) => {
 	try {
 		const propertyUser = await Property.findAll({
 			where: { userHostId: req.user.id },
-
+			attributes: { exclude: ['userHostId', 'propertyTypeId'] },
 			include: [
 				{
 					model: User,

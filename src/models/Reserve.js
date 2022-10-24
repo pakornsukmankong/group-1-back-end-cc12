@@ -16,21 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 					notEmpty: true,
 				},
 			},
-			cleaningFees: {
-				type: DataTypes.STRING,
-				defaultValue: '450',
-				allowNull: false,
-				validate: {
-					notEmpty: true,
-				},
-			},
-			serviceFees: {
-				type: DataTypes.STRING,
-				allowNull: false,
-				validate: {
-					notEmpty: true,
-				},
-			},
+
 			amountPaid: {
 				type: DataTypes.STRING,
 				allowNull: false,

@@ -48,6 +48,22 @@ module.exports = (sequelize, DataTypes) => {
 					notEmpty: true,
 				},
 			},
+			serviceFees: {
+				type: DataTypes.STRING,
+				defaultValue: '400',
+				allowNull: false,
+				validate: {
+					notEmpty: true,
+				},
+			},
+			cleaningFees: {
+				type: DataTypes.STRING,
+				defaultValue: '450',
+				allowNull: false,
+				validate: {
+					notEmpty: true,
+				},
+			},
 		},
 		{ underscored: true }
 	);

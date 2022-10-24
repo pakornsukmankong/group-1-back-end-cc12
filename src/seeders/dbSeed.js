@@ -1,9 +1,5 @@
 const {
 	User,
-	Transaction,
-	Subdistrict,
-	District,
-	Province,
 	Property,
 	PropertyType,
 	PropertyImage,
@@ -66,22 +62,6 @@ const bcrypt = require('bcryptjs');
 // 	process.exit(0);
 // };
 // userSeed();
-
-// const transactionSeed = async () => {
-// 	const hashTransection = await bcrypt.hash('11223344', 12);
-
-// 	const transactionData = [
-// 		{ paymentInfo: hashTransection },
-// 		{ paymentInfo: hashTransection },
-// 		{ paymentInfo: hashTransection },
-// 		{ paymentInfo: hashTransection },
-// 		{ paymentInfo: hashTransection },
-// 	];
-// 	let res = await Transaction.bulkCreate(transactionData);
-// 	console.log(res);
-// 	process.exit(0);
-// };
-// transactionSeed();
 
 // const propertyTypeSeed = async () => {
 // 	const propertyTypeData = [
@@ -307,55 +287,55 @@ const bcrypt = require('bcryptjs');
 // reserveSeed();
 
 // const bookingSeed = async () => {
+// 	const payment = await bcrypt.hash('1122334455', 12);
 // 	const bookingData = [
 // 		{
 // 			checkInDate: '2022-10-20',
 // 			checkOutDate: '2022-10-30',
 // 			amountPaid: '29,039',
 // 			guestsCount: '4',
+// 			paymentInfo: payment,
 // 			propertyId: 1,
 // 			userId: 1,
-// 			transactionId: 1,
 // 		},
 // 		{
 // 			checkInDate: '2022-10-20',
 // 			checkOutDate: '2022-10-30',
 // 			amountPaid: '29,039',
 // 			guestsCount: '4',
+// 			paymentInfo: payment,
 // 			propertyId: 2,
 // 			userId: 2,
-// 			transactionId: 2,
 // 		},
 // 		{
 // 			checkInDate: '2022-10-20',
 // 			checkOutDate: '2022-10-30',
 // 			amountPaid: '29,039',
 // 			guestsCount: '4',
+// 			paymentInfo: payment,
 // 			propertyId: 3,
 // 			userId: 3,
-// 			transactionId: 3,
 // 		},
 // 		{
 // 			checkInDate: '2022-10-20',
 // 			checkOutDate: '2022-10-30',
 // 			amountPaid: '29,039',
 // 			guestsCount: '4',
+// 			paymentInfo: payment,
 // 			propertyId: 4,
 // 			userId: 4,
-// 			transactionId: 4,
 // 		},
 // 		{
 // 			checkInDate: '2022-10-20',
 // 			checkOutDate: '2022-10-30',
 // 			amountPaid: '29,039',
 // 			guestsCount: '4',
+// 			paymentInfo: payment,
 // 			propertyId: 5,
 // 			userId: 5,
-// 			transactionId: 5,
 // 		},
 // 	];
 // 	let res = await Booking.bulkCreate(bookingData);
-
 // 	console.log(res);
 // 	process.exit(0);
 // };

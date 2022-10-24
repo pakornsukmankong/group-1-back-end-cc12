@@ -1,9 +1,9 @@
-const { Reserve } = require('../models');
+const { Reserve, Property, PropertyImage } = require('../models')
 
 exports.createReserve = async (req, res, next) => {
   try {
+    const propertyId = req.params.propertyId
     const {
-      propertyId, // send from frontEnd
       pricePerDate,
       guestsCount,
       cleaningFees,
@@ -11,7 +11,7 @@ exports.createReserve = async (req, res, next) => {
       serviceFees,
       checkInDate,
       checkOutDate,
-    } = req.body;
+    } = req.body
 
     const data = {
       userId: req.user.id, // req.user.id from authenticate
@@ -23,11 +23,48 @@ exports.createReserve = async (req, res, next) => {
       serviceFees,
       checkInDate,
       checkOutDate,
-    };
+    }
 
-    const newReserve = await Reserve.create(data);
-    res.status(201).json({ newReserve });
+    const newReserve = await Reserve.create(data)
+    res.status(201).json({ newReserve })
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}
+
+exports.getReserveRoom = async (req, res, next) => {
+  try {
+    const { userId } = req.body
+    console.log(userId)
+    // const userId = req.user.id // from authenticate
+    const reservedRoom = await Reserve.findOne({
+      where: { userId },
+      include: [
+        {
+          model: Property,
+          attributes: ['propertyName'],
+          include: { model: PropertyImage, attributes: ['propertyImage'] },
+        },
+      ],
+    })
+    console.log(reservedRoom)
+
+    res.status(201).json({ room: reservedRoom })
+  } catch (err) {
+    next(err)
+  }
+}
+
+exports.deleteReserve = async (req, res, next) => {
+  try {
+    await Reserve.destroy({
+      where: {
+        // userId: req.user.id,
+        userId: 4,
+      },
+    })
+    return res.status(200).json(req.omise)
+  } catch (err) {
+    next(err)
+  }
+}

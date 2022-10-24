@@ -1,10 +1,18 @@
-const express = require('express');
+const express = require('express')
 
-const paymentController = require('../controller/paymentController');
-const router = express.Router();
+const paymentController = require('../controller/paymentController')
+const bookingController = require('../controller/bookingController')
+const reserveController = require('../controller/reserveController')
 
-require('dotenv').config();
+const router = express.Router()
 
-router.post('/', paymentController.createPayment);
+require('dotenv').config()
 
-module.exports = router;
+router.post(
+  '/',
+  paymentController.createPayment,
+  bookingController.createBook,
+  reserveController.deleteReserve
+)
+
+module.exports = router

@@ -12,6 +12,7 @@ const {
 	Reserve,
 	Booking,
 	PropertyReview,
+	Wishlist,
 } = require('../models');
 const bcrypt = require('bcryptjs');
 
@@ -24,6 +25,7 @@ const bcrypt = require('bcryptjs');
 // 			lastName: 'forger',
 // 			email: 'yor@gmail.com',
 // 			password: hashpassword,
+// 			gender: 'Female',
 // 			phone: '0811111111',
 // 		},
 // 		{
@@ -31,6 +33,7 @@ const bcrypt = require('bcryptjs');
 // 			lastName: 'baiar',
 // 			email: 'yuri@gmail.com',
 // 			password: hashpassword,
+// 			gender: 'Male',
 // 			phone: '0822222222',
 // 		},
 // 		{
@@ -38,6 +41,7 @@ const bcrypt = require('bcryptjs');
 // 			lastName: 'bieber',
 // 			email: 'justin@gmail.com',
 // 			password: hashpassword,
+// 			gender: 'Male',
 // 			phone: '0833333333',
 // 		},
 // 		{
@@ -45,6 +49,7 @@ const bcrypt = require('bcryptjs');
 // 			lastName: 'forger',
 // 			email: 'loid@gmail.com',
 // 			password: hashpassword,
+// 			gender: 'Male',
 // 			phone: '0844444444',
 // 		},
 // 		{
@@ -52,6 +57,7 @@ const bcrypt = require('bcryptjs');
 // 			lastName: 'forger',
 // 			email: 'anya@gmail.com',
 // 			password: hashpassword,
+// 			gender: 'Female',
 // 			phone: '0855555555',
 // 		},
 // 	];
@@ -65,11 +71,11 @@ const bcrypt = require('bcryptjs');
 // 	const hashTransection = await bcrypt.hash('11223344', 12);
 
 // 	const transactionData = [
-// 		{ paymentInfo: hashTransection, bookingId: 1 },
-// 		{ paymentInfo: hashTransection, bookingId: 2 },
-// 		{ paymentInfo: hashTransection, bookingId: 3 },
-// 		{ paymentInfo: hashTransection, bookingId: 4 },
-// 		{ paymentInfo: hashTransection, bookingId: 5 },
+// 		{ paymentInfo: hashTransection },
+// 		{ paymentInfo: hashTransection },
+// 		{ paymentInfo: hashTransection },
+// 		{ paymentInfo: hashTransection },
+// 		{ paymentInfo: hashTransection },
 // 	];
 // 	let res = await Transaction.bulkCreate(transactionData);
 // 	console.log(res);
@@ -77,55 +83,13 @@ const bcrypt = require('bcryptjs');
 // };
 // transactionSeed();
 
-// const provinceSeed = async () => {
-// 	const provinceData = [
-// 		{ provinceName: 'Bangkok' },
-// 		{ provinceName: 'Bangkok' },
-// 		{ provinceName: 'Bangkok' },
-// 		{ provinceName: 'Bangkok' },
-// 		{ provinceName: 'Nontaburi' },
-// 	];
-// 	let res = await Province.bulkCreate(provinceData);
-// 	console.log(res);
-// 	process.exit(0);
-// };
-// provinceSeed();
-
-// const districtSeed = async () => {
-// 	const districtData = [
-// 		{ districtName: 'Pathumwan', provinceId: 1 },
-// 		{ districtName: 'Pathumwan', provinceId: 2 },
-// 		{ districtName: 'Pathumwan', provinceId: 3 },
-// 		{ districtName: 'Pathumwan', provinceId: 4 },
-// 		{ districtName: 'Saimah', provinceId: 5 },
-// 	];
-// 	let res = await District.bulkCreate(districtData);
-// 	console.log(res);
-// 	process.exit(0);
-// };
-// districtSeed();
-
-// const subdistrictSeed = async () => {
-// 	const subDistrictData = [
-// 		{ subdistrictName: 'LongMueng', districtId: 1 },
-// 		{ subdistrictName: 'LongMueng', districtId: 2 },
-// 		{ subdistrictName: 'LongMueng', districtId: 3 },
-// 		{ subdistrictName: 'LongMueng', districtId: 4 },
-// 		{ subdistrictName: 'Tarsai', districtId: 5 },
-// 	];
-// 	let res = await Subdistrict.bulkCreate(subDistrictData);
-// 	console.log(res);
-// 	process.exit(0);
-// };
-// subdistrictSeed();
-
 // const propertyTypeSeed = async () => {
 // 	const propertyTypeData = [
-// 		{ propertyTypeName: 'villa' },
-// 		{ propertyTypeName: 'Design' },
-// 		{ propertyTypeName: 'Beach' },
-// 		{ propertyTypeName: 'Lake' },
-// 		{ propertyTypeName: 'Castile' },
+// 		{ propertyTypeName: 'villa', propertyTypeIconImage: 'icon villa' },
+// 		{ propertyTypeName: 'Design', propertyTypeIconImage: 'icon Design' },
+// 		{ propertyTypeName: 'Beach', propertyTypeIconImage: 'icon Beach' },
+// 		{ propertyTypeName: 'Lake', propertyTypeIconImage: 'icon Lake' },
+// 		{ propertyTypeName: 'Castile', propertyTypeIconImage: 'icon Castile' },
 // 	];
 // 	let res = await PropertyType.bulkCreate(propertyTypeData);
 // 	console.log(res);
@@ -148,9 +112,6 @@ const bcrypt = require('bcryptjs');
 // 			pricePerDate: '฿131,131',
 // 			roomAvaliable: '1',
 // 			userHostId: 1,
-// 			provinceId: 1,
-// 			districtId: 1,
-// 			subdistrictId: 1,
 // 			propertyTypeId: 1,
 // 		},
 // 		{
@@ -166,9 +127,7 @@ const bcrypt = require('bcryptjs');
 // 			pricePerDate: '฿1,238',
 // 			roomAvaliable: '1',
 // 			userHostId: 2,
-// 			provinceId: 2,
-// 			districtId: 2,
-// 			subdistrictId: 2,
+
 // 			propertyTypeId: 2,
 // 		},
 // 		{
@@ -184,9 +143,7 @@ const bcrypt = require('bcryptjs');
 // 			pricePerDate: '฿3,990',
 // 			roomAvaliable: '1',
 // 			userHostId: 3,
-// 			provinceId: 3,
-// 			districtId: 3,
-// 			subdistrictId: 3,
+
 // 			propertyTypeId: 3,
 // 		},
 // 		{
@@ -202,9 +159,7 @@ const bcrypt = require('bcryptjs');
 // 			pricePerDate: '฿7,365',
 // 			roomAvaliable: '1',
 // 			userHostId: 4,
-// 			provinceId: 4,
-// 			districtId: 4,
-// 			subdistrictId: 4,
+
 // 			propertyTypeId: 4,
 // 		},
 // 		{
@@ -220,9 +175,7 @@ const bcrypt = require('bcryptjs');
 // 			pricePerDate: '฿3,309',
 // 			roomAvaliable: '1',
 // 			userHostId: 5,
-// 			provinceId: 5,
-// 			districtId: 5,
-// 			subdistrictId: 5,
+
 // 			propertyTypeId: 5,
 // 		},
 // 	];
@@ -362,6 +315,7 @@ const bcrypt = require('bcryptjs');
 // 			guestsCount: '4',
 // 			propertyId: 1,
 // 			userId: 1,
+// 			transactionId: 1,
 // 		},
 // 		{
 // 			checkInDate: '2022-10-20',
@@ -370,6 +324,7 @@ const bcrypt = require('bcryptjs');
 // 			guestsCount: '4',
 // 			propertyId: 2,
 // 			userId: 2,
+// 			transactionId: 2,
 // 		},
 // 		{
 // 			checkInDate: '2022-10-20',
@@ -378,6 +333,7 @@ const bcrypt = require('bcryptjs');
 // 			guestsCount: '4',
 // 			propertyId: 3,
 // 			userId: 3,
+// 			transactionId: 3,
 // 		},
 // 		{
 // 			checkInDate: '2022-10-20',
@@ -386,6 +342,7 @@ const bcrypt = require('bcryptjs');
 // 			guestsCount: '4',
 // 			propertyId: 4,
 // 			userId: 4,
+// 			transactionId: 4,
 // 		},
 // 		{
 // 			checkInDate: '2022-10-20',
@@ -394,10 +351,11 @@ const bcrypt = require('bcryptjs');
 // 			guestsCount: '4',
 // 			propertyId: 5,
 // 			userId: 5,
+// 			transactionId: 5,
 // 		},
 // 	];
 // 	let res = await Booking.bulkCreate(bookingData);
-// 	booking;
+
 // 	console.log(res);
 // 	process.exit(0);
 // };
@@ -416,3 +374,32 @@ const bcrypt = require('bcryptjs');
 // 	process.exit(0);
 // };
 // PropertyReviewSeed();
+
+// const wishlistSeed = async () => {
+// 	const wishlistData = [
+// 		{
+// 			propertyId: 1,
+// 			userId: 1,
+// 		},
+// 		{
+// 			propertyId: 2,
+// 			userId: 2,
+// 		},
+// 		{
+// 			propertyId: 3,
+// 			userId: 3,
+// 		},
+// 		{
+// 			propertyId: 4,
+// 			userId: 4,
+// 		},
+// 		{
+// 			propertyId: 5,
+// 			userId: 5,
+// 		},
+// 	];
+// 	let res = await Wishlist.bulkCreate(wishlistData);
+// 	console.log(res);
+// 	process.exit(0);
+// };
+// wishlistSeed();

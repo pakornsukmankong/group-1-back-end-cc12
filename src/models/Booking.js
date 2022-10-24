@@ -30,6 +30,14 @@ module.exports = (sequelize, DataTypes) => {
 					notEmpty: true,
 				},
 			},
+			paymentInfo: {
+				// instead of transaction model
+				type: DataTypes.STRING,
+				allowNull: false,
+				validate: {
+					notEmpty: true,
+				},
+			},
 		},
 		{ underscored: true }
 	);
@@ -54,14 +62,6 @@ module.exports = (sequelize, DataTypes) => {
 		Booking.belongsTo(db.User, {
 			foreignKey: {
 				name: 'userId',
-				allowNull: false,
-			},
-			onDelete: 'RESTRICT',
-		});
-
-		Booking.belongsTo(db.Transaction, {
-			foreignKey: {
-				name: 'bookingId',
 				allowNull: false,
 			},
 			onDelete: 'RESTRICT',

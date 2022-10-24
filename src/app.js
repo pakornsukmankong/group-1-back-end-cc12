@@ -11,15 +11,14 @@ const error = require('./middlewares/error');
 const authRoute = require('./route/authRoute');
 const reserveRoute = require('./route/reserveRoute');
 const paymentRoute = require('./route/paymentRoute');
+const propertyRoute = require('./route/propertyRoute');
+
+const hostRoute = require('./route/hostRoute');
 const propertyTypeRoute = require('./route/propertyTypeRoute');
 const facilityRoute = require('./route/facilityRoute');
 const categoryRoute = require('./route/categoryRoute');
 
-const hostRoute = require('./route/hostRoute');
-let omise = require('omise')({
-  publicKey: process.env.OMISE_PUBLIC_KEY,
-  secretKey: process.env.OMISE_SECRET_KEY
-});
+const authenticate = require('./middlewares/authenticate');
 
 const app = express();
 
@@ -32,10 +31,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', authRoute);
-app.use('/host', hostRoute);
+// app.use('/host', hostRoute);
+app.use('/host', authenticate, hostRoute);
+app.use('/property', propertyRoute);
 
-app.use('/reserve', reserveRoute);
-// app.use('/reserve', authenticate, reserveRoute);
+app.use('/rooms', authenticate, reserveRoute);
 app.use('/payment', paymentRoute);
 // app.use('/payment', authenticate, paymentRoute);
 

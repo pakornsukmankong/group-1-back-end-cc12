@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
 
 		const payload = jwt.verify(
 			token,
-			process.env.JET_SECRET_KEY || 'private_key'
+			process.env.JWT_SECRET_KEY || 'private_key'
 		);
 
 		const user = await User.findOne({

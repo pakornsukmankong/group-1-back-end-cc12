@@ -1,5 +1,5 @@
-const { Province } = require('../models');
+const { User } = require('../models');
 
-Province.sync({ force: true })
+User.sync({ force: true })
 	.then(() => process.exit(0))
 	.catch((err) => process.exit(1));

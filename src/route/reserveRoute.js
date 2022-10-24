@@ -4,6 +4,7 @@ const reserveController = require('../controller/reserveController');
 
 const router = express.Router();
 
-router.post('/', reserveController.createReserve);
+router.post('/:propertyId/reserve', reserveController.createReserve);
+router.get('/:propertyId/cardProperty', reserveController.getReserveRoom);
 
 module.exports = router;

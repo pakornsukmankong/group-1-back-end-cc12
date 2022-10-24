@@ -24,6 +24,22 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ENUM(HOST_ACTIVE, HOST_PENDING, HOST_DELETED),
         allowNull: false,
         defaultValue: HOST_PENDING
+      },
+      serviceFees: {
+        type: DataTypes.STRING,
+        defaultValue: '400',
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
+      },
+      cleaningFees: {
+        type: DataTypes.STRING,
+        defaultValue: '450',
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
       }
     },
     { underscored: true }

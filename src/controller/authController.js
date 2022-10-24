@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const { Op } = require('sequelize');
 
 const AppError = require('../utils/appError');
-const { User } = require('../models');
+const { User, Wishlist } = require('../models');
 
 const client = require('twilio')(
 	process.env.ACCOUNT_SID, // process.env.ACCOUNT_SID,
@@ -247,3 +247,25 @@ exports.updateProfile = async (req, res, next) => {
 		next(err);
 	}
 };
+
+exports.addWishList = async (req, res, next) => {
+	const userId = req.user.id;
+	const { propertyId } = req.body;
+	// console.log(userId);
+	// console.log(propertyId);
+	const wishlist = await Wishlist.create({ propertyId, userId });
+	res.status(200).json({ wishlist });
+};
+
+exports.removeWishList = async (req, res, next) => {
+	const userId = req.user.id;
+	const { propertyId } = req.body;
+	// console.log(userId);
+	// console.log(propertyId);
+	const removeWishList = await Wishlist.destroy({
+		where: { userId, propertyId },
+	});
+	res.status(200).json({ removeWishList });
+};
+
+exports.removeWishList;

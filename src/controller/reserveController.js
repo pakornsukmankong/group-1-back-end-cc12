@@ -1,4 +1,4 @@
-const { Reserve, Property, PropertyImage } = require('../models')
+const { Reserve, Property, PropertyImage, User } = require('../models')
 
 exports.createReserve = async (req, res, next) => {
   try {
@@ -34,20 +34,22 @@ exports.createReserve = async (req, res, next) => {
 
 exports.getReserveRoom = async (req, res, next) => {
   try {
-    const { userId } = req.body
-    console.log(userId)
     // const userId = req.user.id // from authenticate
     const reservedRoom = await Reserve.findOne({
-      where: { userId },
+      where: { userId: 4 },
       include: [
         {
           model: Property,
           attributes: ['propertyName'],
           include: { model: PropertyImage, attributes: ['propertyImage'] },
         },
+        {
+          model: User,
+          attributes: { exclude: 'password' },
+        },
       ],
     })
-    console.log(reservedRoom)
+    // console.log(reservedRoom)
 
     res.status(201).json({ room: reservedRoom })
   } catch (err) {

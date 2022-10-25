@@ -31,12 +31,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', authRoute);
-// app.use('/host', hostRoute);
-app.use('/host', authenticate, hostRoute);
+app.use('/host', hostRoute);
+//app.use ('/host',authenticate ,hostRoute)
 app.use('/property', propertyRoute);
 
 app.use('/rooms', authenticate, reserveRoute);
-app.use('/payment', paymentRoute);
+app.use('/payment', authenticate, paymentRoute);
+
 // app.use('/payment', authenticate, paymentRoute);
 
 app.use('/property-type', propertyTypeRoute);

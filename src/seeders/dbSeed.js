@@ -164,6 +164,7 @@ const bcrypt = require('bcryptjs');
 // };
 // propertySeed();
 
+
 // const propertyImagesSeed = async () => {
 // 	const propertyImagesData = [
 // 		{
@@ -197,6 +198,7 @@ const bcrypt = require('bcryptjs');
 // 	process.exit(0);
 // };
 // propertyImagesSeed();
+
 
 // const facilitySeed = async () => {
 // 	const facilityData = [

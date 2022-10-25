@@ -6,15 +6,9 @@ const router = express.Router();
 
 router.get('/', propertyController.getAllProperty);
 router.get('/findproperty/:id', propertyController.getProperty);
-router.get('/user', authenticate, propertyController.getPropertyByUser);
+router.get('/userproperty', authenticate, propertyController.getPropertyByUser);
 
 // wishlist
-// router.post('/addwishlist', authenticate, propertyController.addWishList);
-// router.delete(
-// 	'/removewishlist',
-// 	authenticate,
-// 	propertyController.removeWishList
-// );
 
 router.get('/getwishlist', authenticate, propertyController.getWishList);
 router.post('/togglewishlist', authenticate, propertyController.toggleWishList);

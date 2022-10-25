@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 				name: 'userId',
 				allowNull: false,
 			},
-			onDelete: 'RESTRICT',
+			onDelete: 'CASCADE',
 		});
 
 		Wishlist.belongsTo(db.Property, {
@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 				name: 'propertyId',
 				allowNull: false,
 			},
-			onDelete: 'RESTRICT',
+			onDelete: 'CASCADE',
 		});
 	};
 

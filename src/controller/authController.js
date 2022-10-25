@@ -189,6 +189,7 @@ exports.updateProfile = async (req, res, next) => {
 			email,
 			currentPassword,
 			newPassword,
+			confirmPassword,
 		} = req.body;
 
 		// console.log(currentPassword, 'currentPassword');
@@ -238,6 +239,13 @@ exports.updateProfile = async (req, res, next) => {
 			profileImage = await cloudinary.upload(req.file.path);
 		}
 
+		if (newPassword !== confirmPassword) {
+			throw new AppError(
+				'New Password and Confirm Password is not match ',
+				400
+			);
+		}
+
 		const updateUser = await User.update(data, {
 			where: { id },
 		});
@@ -246,4 +254,11 @@ exports.updateProfile = async (req, res, next) => {
 	} catch (err) {
 		next(err);
 	}
+};
+
+exports.deleteUser = async (req, res, next) => {
+	const userId = req.user.id;
+
+	const user = await User.destroy({ where: { id: userId } });
+	res.status(200).json({ user });
 };

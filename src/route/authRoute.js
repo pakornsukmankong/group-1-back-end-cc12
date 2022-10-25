@@ -18,4 +18,6 @@ router.patch(
 	authController.updateProfile
 );
 
+router.delete('/deleteuser', authenticate, authController.deleteUser);
+
 module.exports = router;

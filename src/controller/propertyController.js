@@ -29,6 +29,7 @@ exports.getAllProperty = async (req, res, next) => {
 exports.getProperty = async (req, res, next) => {
 	try {
 		const { id } = req.params;
+
 		const property = await Property.findOne({
 			where: { id },
 			attributes: { exclude: ['userHostId', 'propertyTypeId'] },
@@ -38,6 +39,7 @@ exports.getProperty = async (req, res, next) => {
 					attributes: { exclude: 'password' },
 				},
 				{ model: PropertyType },
+				{ model: PropertyImage },
 			],
 		});
 		res.status(201).json({ property });
@@ -70,6 +72,7 @@ exports.getWishList = async (req, res) => {
 	const userId = req.user.id;
 	const findWishListByUser = await Wishlist.findAll({
 		where: { userId: userId },
+		include: { model: Property, include: { model: PropertyImage } },
 	});
 	res.status(200).json({ findWishListByUser });
 };

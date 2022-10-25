@@ -67,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
         name: 'propertyId',
         allowNull: false
       },
-      onDelete: 'RESTRICT'
+      onDelete: 'CASCADE'
     });
 
     Property.hasMany(db.PropertyFacility, {
@@ -78,7 +78,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE'
     });
 
-    Property.hasMany(db.PropertyCategory, {
+    Property.hasMany(db.PropertyImage, {
       foreignKey: {
         name: 'propertyId',
         allowNull: false
@@ -86,12 +86,12 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE'
     });
 
-    Property.hasMany(db.PropertyImage, {
+    Property.belongsTo(db.User, {
       foreignKey: {
-        name: 'propertyId',
-        allowNull: true
+        name: 'userHostId',
+        allowNull: false
       },
-      onDelete: 'RESTRICT'
+      onDelete: 'CASCADE'
     });
 
     Property.belongsTo(db.User, {
@@ -115,7 +115,7 @@ module.exports = (sequelize, DataTypes) => {
         name: 'propertyId',
         allowNull: false
       },
-      onDelete: 'RESTRICT'
+      onDelete: 'CASCADE'
     });
   };
 

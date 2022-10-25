@@ -48,7 +48,8 @@ module.exports = (sequelize, DataTypes) => {
 			// 	},
 			// },
 		},
-		{ underscored: true }
+		{ underscored: true },
+		{ paranoid: true }
 	);
 
 	User.associate = (db) => {
@@ -57,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
 				name: 'userHostId',
 				allowNull: false,
 			},
-			onDelete: 'RESTRICT',
+			onDelete: 'CASCADE',
 		});
 
 		User.hasMany(db.Reserve, {
@@ -73,7 +74,7 @@ module.exports = (sequelize, DataTypes) => {
 				name: 'userId',
 				allowNull: false,
 			},
-			onDelete: 'RESTRICT',
+			onDelete: 'CASCADE',
 		});
 
 		User.hasOne(db.PropertyReview, {
@@ -81,7 +82,7 @@ module.exports = (sequelize, DataTypes) => {
 				name: 'userId',
 				allowNull: false,
 			},
-			onDelete: 'RESTRICT',
+			onDelete: 'CASCADE',
 		});
 
 		User.hasMany(db.Wishlist, {
@@ -89,7 +90,7 @@ module.exports = (sequelize, DataTypes) => {
 				name: 'userId',
 				allowNull: false,
 			},
-			onDelete: 'RESTRICT',
+			onDelete: 'CASCADE',
 		});
 	};
 

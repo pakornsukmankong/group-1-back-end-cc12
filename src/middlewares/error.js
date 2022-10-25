@@ -1,6 +1,5 @@
 module.exports = (err, req, res, next) => {
-	console.log(err.statusCode);
-	console.log('a rai suk yang nung');
+	console.log(err);
 	if (
 		err.name === 'SequelizeValidationError' ||
 		err.name === 'SequelizeUniqueConstraintError'

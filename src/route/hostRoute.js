@@ -5,23 +5,30 @@ const authenticate = require('../middlewares/authenticate');
 
 const router = express.Router();
 
-// router.post('/createhost', authenticate, hostController.createHost);
-// router.patch('/update/:id', authenticate, hostController.edithost);
-// router.delete('/delete/:id', authenticate, hostController.deletehost);
-
-router.post(
-  '/create/property-type',
+router.get('/list', authenticate, hostController.getHostList);
+router.get('/filter', hostController.filterHostByCategory);
+router.post('/create/property-type', authenticate, hostController.createHost);
+router.patch('/update/category', authenticate, hostController.updateCategory);
+router.patch('/update/location', authenticate, hostController.updateLocation);
+router.patch(
+  '/update/floor-plan',
   authenticate,
-  hostController.createHostByPropertyType
+  hostController.updateFloorPlan
 );
-// router.patch('/update/:id/category', authenticate, hostController.category);
-// router.patch('/update/:id/location', authenticate, hostController.location);
-// router.patch('/update/:id/floor-plan', authenticate, hostController.floorPlan);
-// router.patch('/update/:id/facility', authenticate, hostController.facility);
-// router.patch('/update/:id/photo', authenticate, hostController.photo);
-// router.patch('/update/:id/title', authenticate, hostController.title);
-// router.patch('/update/:id/description', authenticate, hostController.description);
-// router.patch('/update/:id/price', authenticate, hostController.price);
-// router.patch('/update/:id/preview', authenticate, hostController.preview);
+router.patch('/update/facility', authenticate, hostController.updateFacility);
+router.patch(
+  '/update/photo',
+  authenticate,
+  upload.fields([{ name: 'photos' }]),
+  hostController.updatePhoto
+);
+router.patch('/update/title', authenticate, hostController.updateTitle);
+router.patch(
+  '/update/description',
+  authenticate,
+  hostController.updateDescription
+);
+router.patch('/update/price', authenticate, hostController.updatePrice);
+router.patch('/update/preview', authenticate, hostController.savePreview);
 
 module.exports = router;

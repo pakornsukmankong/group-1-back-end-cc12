@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Category.associate = (db) => {
-    Category.hasMany(db.Property, {
+    Category.hasMany(db.PropertyCategory, {
       foreignKey: {
         name: 'categoryId',
         allowNull: true

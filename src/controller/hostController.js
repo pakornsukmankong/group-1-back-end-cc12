@@ -1,170 +1,44 @@
 const AppError = require('../utils/appError');
+const cloudinary = require('../utils/cloudinary');
 const {
   Property,
-  User,
-  Province,
-  District,
-  Subdistrict,
-  PropertyType
+  PropertyCategory,
+  PropertyFacility,
+  PropertyImage
 } = require('../models');
+const { HOST_ACTIVE } = require('../config/constants');
 
-// exports.createHost = async (req, res, next) => {
-//   try {
-//     const {
-//       propertyName,
-//       description,
-//       address,
-//       latitude,
-//       longitude,
-//       bedQty,
-//       bedRoomQty,
-//       bathRoomQty,
-//       pricePerDate,
-//       roomAvaliable,
-//       provinceId,
-//       districtId,
-//       propertyTypeId,
-//       subdistrictId
-//     } = req.body;
+exports.getHostList = async (req, res, next) => {
+  try {
+    const host = await Property.findAll({
+      order: [['createdAt', 'ASC']]
+    });
+    res.status(200).json({ data: host });
+  } catch (err) {
+    next(err);
+  }
+};
 
-//     // console.log(req.body);
+exports.filterHostByCategory = async (req, res, next) => {
+  try {
+    const { cat: categoryId } = req.query;
+    const host = await PropertyCategory.findAll({
+      where: { categoryId: categoryId },
+      order: [['createdAt', 'DESC']],
+      include: [
+        {
+          model: PropertyCategory,
+          where: { categoryId: categoryId }
+        }
+      ]
+    });
+    res.status(200).json({ data: host });
+  } catch (err) {
+    next(err);
+  }
+};
 
-//     if (!propertyName || !String(propertyName)) {
-//       throw new AppError('propertyName is invalid', 400);
-//     }
-//     if (!address || !String(address)) {
-//       throw new AppError('address is Incorrect or not inserted', 400);
-//     }
-//     if (!bedQty || !String(bedQty)) {
-//       throw new AppError('Please include the number of beds', 400);
-//     }
-//     if (!bedRoomQty || !String(bedRoomQty)) {
-//       throw new AppError('Please include the number of bedrooms.', 400);
-//     }
-//     if (!bathRoomQty || !String(bathRoomQty)) {
-//       throw new AppError('Please include the number of bathrooms.', 400);
-//     }
-//     if (!pricePerDate || !String(bathRoomQty)) {
-//       throw new AppError('Please include the room rate per day', 400);
-//     }
-//     if (!roomAvaliable || !String(bathRoomQty)) {
-//       throw new AppError('Please include the number of rooms available.', 400);
-//     }
-
-//     // id from model
-//     const user = await User.findOne({ where: { id: req.user.id } });
-
-//     const province = await Province.findOne({ where: { id: provinceId } });
-
-//     const district = await District.findOne({ where: { id: districtId } });
-
-//     const propertyType = await PropertyType.findOne({
-//       where: { id: propertyTypeId }
-//     });
-//     const subdistrict = await Subdistrict.findOne({
-//       where: { id: subdistrictId }
-//     });
-
-//     // host create House
-//     const host = await Property.create({
-//       propertyName,
-//       description: description || null,
-//       address,
-//       latitude: latitude || null,
-//       longitude: longitude || null,
-//       bedQty,
-//       bedRoomQty,
-//       bathRoomQty,
-//       pricePerDate,
-//       roomAvailable,
-//       userHostId: user.id,
-//       provinceId: province.id,
-//       districtId: district.id,
-//       subdistrictId: subdistrict.id,
-//       propertyTypeId: propertyType.id
-//     });
-//     res.status(201).json({ host });
-//   } catch (err) {
-//     next(err);
-//   }
-// };
-
-// exports.deletehost = async (req, res, next) => {
-//   try {
-//     console.log('delete');
-//     const { id } = req.params;
-//     const post = await Property.destroy({
-//       where: { id, userHostId: req.user.id }
-//     });
-//     console.log(post);
-//     res.status(201).json({ message: 'success delete' });
-//   } catch (err) {
-//     next(err);
-//   }
-// };
-// // feature edit
-// exports.edithost = async (req, res, next) => {
-//   try {
-//     const data = { userId: req.user.id };
-//     const { id } = req.params;
-//     const {
-//       propertyName,
-//       description,
-//       address,
-//       latitude,
-//       longitude,
-//       bedQty,
-//       bedRoomQty,
-//       bathRoomQty,
-//       pricePerDate,
-//       roomAvaliable,
-//       provinceId,
-//       districtId,
-//       propertyTypeId,
-//       subdistrictId
-//     } = req.body;
-//     if (propertyName && propertyName.trim()) {
-//       data.propertyName = propertyName;
-//     }
-//     if (description && description.trim()) {
-//       data.description = description;
-//     }
-//     if (address && address.trim()) {
-//       data.address = address;
-//     }
-//     if (latitude) {
-//       data.latitude = latitude;
-//     }
-//     if (longitude) {
-//       data.longitude = longitude;
-//     }
-//     if (bedQty) {
-//       data.bedQty = bedQty;
-//     }
-//     if (bedRoomQty) {
-//       data.bedRoomQty = bedRoomQty;
-//     }
-//     if (bathRoomQty) {
-//       data.bathRoomQty = bathRoomQty;
-//     }
-//     if (pricePerDate) {
-//       data.pricePerDate = pricePerDate;
-//     }
-//     if (roomAvaliable) {
-//       data.roomAvaliable = roomAvaliable;
-//     }
-//     // id from model form
-//     const findedProperty = await Property.findOne({ where: { id } });
-//     const post = await Property.update(data, {
-//       where: { id: findedProperty.id }
-//     });
-//     res.status(201).json({ post });
-//   } catch (err) {
-//     next(err);
-//   }
-// };
-
-exports.createHostByPropertyType = async (req, res, next) => {
+exports.createHost = async (req, res, next) => {
   try {
     const { propertyTypeId } = req.body;
 
@@ -178,6 +52,35 @@ exports.createHostByPropertyType = async (req, res, next) => {
       propertyTypeId: propertyTypeId
     });
     res.status(201).json({ host });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.updateCategory = async (req, res, next) => {
+  try {
+    const { propertyId, list } = req.body;
+
+    if (!Array.isArray(list)) {
+      throw new AppError('list is invalid', 400);
+    }
+
+    if (list && list.length) {
+      const dataList = list.map((category) => {
+        return {
+          propertyId: propertyId,
+          categoryId: category.categoryId
+        };
+      });
+      const resList = await PropertyCategory.bulkCreate(dataList);
+      res.status(200).json({
+        message: `Update category Success by propertyId:${propertyId}`,
+        data: resList
+      });
+    } else {
+      res.status(500).json({ message: 'please fill category list' });
+    }
+    // TODO: check case another user created
   } catch (err) {
     next(err);
   }
@@ -205,11 +108,244 @@ exports.updateLocation = async (req, res, next) => {
       longitude
     };
 
-    // create property location
-    const host = await Property.update(data, {
-      where: { id: propertyId }
+    const updateStatus = await Property.update(data, {
+      where: {
+        id: propertyId,
+        userHostId: req.user.id // req.user.id from authenticate
+      }
     });
-    res.status(201).json({ host });
+
+    if (!updateStatus[0]) {
+      throw new AppError(`Cannot found propertyId:${propertyId}`, 403);
+    }
+
+    res.status(201).json({
+      message: `Update Location Success by propertyId:${propertyId}`
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.updateFloorPlan = async (req, res, next) => {
+  try {
+    const { propertyId, guestQty, bedQty, bedRoomQty, bathRoomQty } = req.body;
+
+    if (!guestQty || !Number(guestQty)) {
+      throw new AppError('guestQty is invalid', 400);
+    }
+
+    if (!bedQty || !Number(bedQty)) {
+      throw new AppError('bedQty is invalid', 400);
+    }
+
+    if (!bedRoomQty || !Number(bedRoomQty)) {
+      throw new AppError('bedRoomQty is invalid', 400);
+    }
+
+    if (!bathRoomQty || !Number(bathRoomQty)) {
+      throw new AppError('bedRoomQty is invalid', 400);
+    }
+
+    const data = {
+      guestQty,
+      bedQty,
+      bedRoomQty,
+      bathRoomQty
+    };
+
+    const updateStatus = await Property.update(data, {
+      where: {
+        id: propertyId,
+        userHostId: req.user.id // req.user.id from authenticate
+      }
+    });
+
+    if (!updateStatus[0]) {
+      throw new AppError(`Cannot found propertyId:${propertyId}`, 403);
+    }
+
+    res.status(201).json({
+      message: `Update FloorPlan Success by propertyId:${propertyId}`
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.updateFacility = async (req, res, next) => {
+  try {
+    const { propertyId, list } = req.body;
+
+    if (!Array.isArray(list)) {
+      throw new AppError('list is invalid', 400);
+    }
+
+    if (list && list.length) {
+      const dataList = list.map((facility) => {
+        return {
+          propertyId: propertyId,
+          facilityId: facility.facilityId
+        };
+      });
+      const resList = await PropertyFacility.bulkCreate(dataList);
+      res.status(200).json({
+        message: `Update facility Success by propertyId:${propertyId}`,
+        data: resList
+      });
+    } else {
+      res.status(500).json({ message: 'please facility category list' });
+    }
+    // TODO: check case another user created
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.updatePhoto = async (req, res, next) => {
+  try {
+    const { propertyId } = req.body;
+    const { photos } = req.files;
+
+    if (!Array.isArray(photos)) {
+      throw new AppError('photos is invalid', 400);
+    }
+    if (photos && photos.length) {
+      const multiplePhotoPromise = photos.map(async (photo) => {
+        const secureUrl = await cloudinary.upload(photo.path, 'host');
+        return {
+          propertyImage: secureUrl,
+          propertyId: propertyId
+        };
+      });
+
+      let uploadResponses = await Promise.all(multiplePhotoPromise);
+
+      const resList = await PropertyImage.bulkCreate(uploadResponses);
+      res.status(200).json({
+        data: resList
+      });
+    } else {
+      res.status(500).json({ message: 'please fill photos' });
+    }
+    // TODO: check case another user created
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.updateTitle = async (req, res, next) => {
+  try {
+    const { propertyId, title } = req.body;
+
+    if (!title || !String(title)) {
+      throw new AppError('title is invalid', 400);
+    }
+
+    console.log('propertyId', propertyId);
+
+    const data = {
+      propertyName: title
+    };
+
+    const updateStatus = await Property.update(data, {
+      where: {
+        id: propertyId,
+        userHostId: req.user.id // req.user.id from authenticate
+      }
+    });
+
+    if (!updateStatus[0]) {
+      throw new AppError(`Cannot found propertyId:${propertyId}`, 403);
+    }
+
+    res.status(201).json({
+      message: `Update Title Success by propertyId:${propertyId}`
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.updateDescription = async (req, res, next) => {
+  try {
+    // const { propertyId, description } = req.body;
+    if (!description || !String(description)) {
+      throw new AppError('description is invalid', 400);
+    }
+    const data = {
+      description
+    };
+    const updateStatus = await Property.update(data, {
+      where: {
+        id: propertyId,
+        userHostId: req.user.id // req.user.id from authenticate
+      }
+    });
+    if (!updateStatus[0]) {
+      throw new AppError(`Cannot found propertyId:${propertyId}`, 403);
+    }
+    res.status(201).json({
+      message: `Update description Success by propertyId:${propertyId}`
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.updatePrice = async (req, res, next) => {
+  try {
+    const { propertyId, pricePerDate } = req.body;
+
+    if (!pricePerDate || !Number(pricePerDate)) {
+      throw new AppError('pricePerDate is invalid', 400);
+    }
+
+    const data = {
+      pricePerDate
+    };
+
+    const updateStatus = await Property.update(data, {
+      where: {
+        id: propertyId,
+        userHostId: req.user.id // req.user.id from authenticate
+      }
+    });
+
+    if (!updateStatus[0]) {
+      throw new AppError(`Cannot found propertyId:${propertyId}`, 403);
+    }
+
+    res.status(201).json({
+      message: `Update pricePerDate Success by propertyId:${propertyId}`
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.savePreview = async (req, res, next) => {
+  try {
+    const { propertyId } = req.body;
+
+    const data = {
+      hostStatus: HOST_ACTIVE
+    };
+
+    const updateStatus = await Property.update(data, {
+      where: {
+        id: propertyId,
+        userHostId: req.user.id // req.user.id from authenticate
+      }
+    });
+
+    if (!updateStatus[0]) {
+      throw new AppError(`Cannot found propertyId:${propertyId}`, 403);
+    }
+
+    res.status(201).json({
+      message: `Update save preview success by propertyId:${propertyId}`
+    });
   } catch (err) {
     next(err);
   }

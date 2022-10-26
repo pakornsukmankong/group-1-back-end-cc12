@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
 				name: 'propertyId',
 				allowNull: false,
 			},
-			onDelete: 'RESTRICT',
+			onDelete: 'CASCADE',
 		});
 
 		PropertyReview.belongsTo(db.User, {
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 				name: 'userId',
 				allowNull: false,
 			},
-			onDelete: 'RESTRICT',
+			onDelete: 'CASCADE',
 		});
 
 		PropertyReview.belongsTo(db.Booking, {
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
 				name: 'bookingId',
 				allowNull: false,
 			},
-			onDelete: 'RESTRICT',
+			onDelete: 'CASCADE',
 		});
 	};
 

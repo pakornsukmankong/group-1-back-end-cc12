@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const AppError = require('../utils/appError');
 const cloudinary = require('../utils/cloudinary');
 const {
@@ -27,8 +28,7 @@ exports.filterHostByCategory = async (req, res, next) => {
       order: [['createdAt', 'DESC']],
       include: [
         {
-          model: PropertyCategory,
-          where: { categoryId: categoryId }
+          model: Property
         }
       ]
     });
@@ -65,10 +65,24 @@ exports.updateCategory = async (req, res, next) => {
       throw new AppError('list is invalid', 400);
     }
 
+    const findPropertyId = await PropertyCategory.findAll({
+      where: {
+        propertyId
+      }
+    });
+
+    if (findPropertyId) {
+      await PropertyCategory.destroy({
+        where: {
+          propertyId
+        }
+      });
+    }
+
     if (list && list.length) {
       const dataList = list.map((category) => {
         return {
-          propertyId: propertyId,
+          propertyId,
           categoryId: category.categoryId
         };
       });
@@ -181,6 +195,18 @@ exports.updateFacility = async (req, res, next) => {
       throw new AppError('list is invalid', 400);
     }
 
+    const findPropertyId = await PropertyFacility.findAll({
+      where: { propertyId }
+    });
+
+    if (findPropertyId) {
+      await PropertyFacility.destroy({
+        where: {
+          propertyId
+        }
+      });
+    }
+
     if (list && list.length) {
       const dataList = list.map((facility) => {
         return {
@@ -269,7 +295,7 @@ exports.updateTitle = async (req, res, next) => {
 
 exports.updateDescription = async (req, res, next) => {
   try {
-    // const { propertyId, description } = req.body;
+    const { propertyId, description } = req.body;
     if (!description || !String(description)) {
       throw new AppError('description is invalid', 400);
     }

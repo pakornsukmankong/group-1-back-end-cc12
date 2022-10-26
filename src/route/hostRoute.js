@@ -5,7 +5,7 @@ const authenticate = require('../middlewares/authenticate');
 
 const router = express.Router();
 
-router.get('/list', authenticate, hostController.getHostList);
+router.get('/list', hostController.getHostList);
 router.get('/filter', hostController.filterHostByCategory);
 router.post('/create/property-type', authenticate, hostController.createHost);
 router.patch('/update/category', authenticate, hostController.updateCategory);

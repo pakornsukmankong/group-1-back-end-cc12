@@ -1,12 +1,11 @@
 const { Booking, Reserve } = require('../models')
 
 exports.createBook = async (req, res, next) => {
+  const { reserveId } = req.body
   try {
-    // const userId = req.user.id
     const reservedRoom = await Reserve.findOne({
       where: {
-        // userId,
-        userId: 4,
+        id: reserveId,
       },
       attributes: [
         'guestsCount',
@@ -21,7 +20,7 @@ exports.createBook = async (req, res, next) => {
       reservedRoom
     const paymentInfo = req.tokenOmise
     const bookedRoom = await Booking.create({
-      userId: 4, // userId: req.user.id
+      userId: req.user.id,
       propertyId,
       guestsCount,
       checkInDate,

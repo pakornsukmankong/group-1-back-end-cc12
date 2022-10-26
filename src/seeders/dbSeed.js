@@ -89,7 +89,7 @@ const bcrypt = require('bcryptjs');
 // 			bedQty: '8',
 // 			bedRoomQty: '8',
 // 			bathRoomQty: '10',
-// 			pricePerDate: '฿131,131',
+// 			pricePerDate: '131131',
 // 			roomAvaliable: '1',
 // 			userHostId: 1,
 // 			propertyTypeId: 1,
@@ -104,7 +104,7 @@ const bcrypt = require('bcryptjs');
 // 			bedQty: '1',
 // 			bedRoomQty: '1',
 // 			bathRoomQty: '1',
-// 			pricePerDate: '฿1,238',
+// 			pricePerDate: '1238',
 // 			roomAvaliable: '1',
 // 			userHostId: 2,
 
@@ -120,7 +120,7 @@ const bcrypt = require('bcryptjs');
 // 			bedQty: '2',
 // 			bedRoomQty: '2',
 // 			bathRoomQty: '2',
-// 			pricePerDate: '฿3,990',
+// 			pricePerDate: '3990',
 // 			roomAvaliable: '1',
 // 			userHostId: 3,
 
@@ -136,7 +136,7 @@ const bcrypt = require('bcryptjs');
 // 			bedQty: '6',
 // 			bedRoomQty: '7',
 // 			bathRoomQty: '5',
-// 			pricePerDate: '฿7,365',
+// 			pricePerDate: '7365',
 // 			roomAvaliable: '1',
 // 			userHostId: 4,
 // 			propertyTypeId: 4,
@@ -151,7 +151,7 @@ const bcrypt = require('bcryptjs');
 // 			bedQty: '2',
 // 			bedRoomQty: '2',
 // 			bathRoomQty: '2',
-// 			pricePerDate: '฿3,309',
+// 			pricePerDate: '3309',
 // 			roomAvaliable: '1',
 // 			userHostId: 5,
 
@@ -163,7 +163,6 @@ const bcrypt = require('bcryptjs');
 // 	process.exit(0);
 // };
 // propertySeed();
-
 
 // const propertyImagesSeed = async () => {
 // 	const propertyImagesData = [
@@ -199,7 +198,6 @@ const bcrypt = require('bcryptjs');
 // };
 // propertyImagesSeed();
 
-
 // const facilitySeed = async () => {
 // 	const facilityData = [
 // 		{ facilityName: 'Free parking on premises', facilityIconImage: 'parking' },
@@ -234,8 +232,8 @@ const bcrypt = require('bcryptjs');
 // 			pricePerDate: '6,685',
 // 			guestsCount: '4',
 // 			cleaningFees: '450',
-// 			serviceFees: '4,386',
-// 			amountPaid: '29,039',
+// 			serviceFees: '4386',
+// 			amountPaid: '29039',
 // 			checkInDate: '2022-10-20',
 // 			checkOutDate: '2022-10-30',
 // 			propertyId: 1,
@@ -245,8 +243,8 @@ const bcrypt = require('bcryptjs');
 // 			pricePerDate: '6,685',
 // 			guestsCount: '4',
 // 			cleaningFees: '450',
-// 			serviceFees: '4,386',
-// 			amountPaid: '29,039',
+// 			serviceFees: '4386',
+// 			amountPaid: '29039',
 // 			checkInDate: '2022-10-20',
 // 			checkOutDate: '2022-10-30',
 // 			propertyId: 2,
@@ -256,8 +254,8 @@ const bcrypt = require('bcryptjs');
 // 			pricePerDate: '6,685',
 // 			guestsCount: '4',
 // 			cleaningFees: '450',
-// 			serviceFees: '4,386',
-// 			amountPaid: '29,039',
+// 			serviceFees: '4386',
+// 			amountPaid: '29039',
 // 			checkInDate: '2022-10-20',
 // 			checkOutDate: '2022-10-30',
 // 			propertyId: 3,
@@ -267,8 +265,8 @@ const bcrypt = require('bcryptjs');
 // 			pricePerDate: '6,685',
 // 			guestsCount: '4',
 // 			cleaningFees: '450',
-// 			serviceFees: '4,386',
-// 			amountPaid: '29,039',
+// 			serviceFees: '4386',
+// 			amountPaid: '29039',
 // 			checkInDate: '2022-10-20',
 // 			checkOutDate: '2022-10-30',
 // 			propertyId: 4,
@@ -278,8 +276,8 @@ const bcrypt = require('bcryptjs');
 // 			pricePerDate: '6,685',
 // 			guestsCount: '4',
 // 			cleaningFees: '450',
-// 			serviceFees: '4,386',
-// 			amountPaid: '29,039',
+// 			serviceFees: '4386',
+// 			amountPaid: '29039',
 // 			checkInDate: '2022-10-20',
 // 			checkOutDate: '2022-10-30',
 // 			propertyId: 5,
@@ -298,7 +296,7 @@ const bcrypt = require('bcryptjs');
 // 		{
 // 			checkInDate: '2022-10-20',
 // 			checkOutDate: '2022-10-30',
-// 			amountPaid: '29,039',
+// 			amountPaid: '29039',
 // 			guestsCount: '4',
 // 			paymentInfo: payment,
 // 			propertyId: 1,
@@ -307,7 +305,7 @@ const bcrypt = require('bcryptjs');
 // 		{
 // 			checkInDate: '2022-10-20',
 // 			checkOutDate: '2022-10-30',
-// 			amountPaid: '29,039',
+// 			amountPaid: '29039',
 // 			guestsCount: '4',
 // 			paymentInfo: payment,
 // 			propertyId: 2,
@@ -316,7 +314,7 @@ const bcrypt = require('bcryptjs');
 // 		{
 // 			checkInDate: '2022-10-20',
 // 			checkOutDate: '2022-10-30',
-// 			amountPaid: '29,039',
+// 			amountPaid: '29039',
 // 			guestsCount: '4',
 // 			paymentInfo: payment,
 // 			propertyId: 3,
@@ -325,7 +323,7 @@ const bcrypt = require('bcryptjs');
 // 		{
 // 			checkInDate: '2022-10-20',
 // 			checkOutDate: '2022-10-30',
-// 			amountPaid: '29,039',
+// 			amountPaid: '29039',
 // 			guestsCount: '4',
 // 			paymentInfo: payment,
 // 			propertyId: 4,
@@ -334,7 +332,7 @@ const bcrypt = require('bcryptjs');
 // 		{
 // 			checkInDate: '2022-10-20',
 // 			checkOutDate: '2022-10-30',
-// 			amountPaid: '29,039',
+// 			amountPaid: '29039',
 // 			guestsCount: '4',
 // 			paymentInfo: payment,
 // 			propertyId: 5,

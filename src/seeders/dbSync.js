@@ -1,5 +1,5 @@
-const { User } = require('../models');
+// const { Property } = require('../models');
 
-User.sync({ force: true })
-	.then(() => process.exit(0))
-	.catch((err) => process.exit(1));
+// Property.sync({ force: true })
+// 	.then(() => process.exit(0))
+// 	.catch((err) => process.exit(1));

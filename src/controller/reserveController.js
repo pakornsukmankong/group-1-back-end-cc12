@@ -33,14 +33,16 @@ exports.createReserve = async (req, res, next) => {
 }
 
 exports.getReserveRoom = async (req, res, next) => {
+  const { reserveId } = req.params
+
   try {
     // const userId = req.user.id // from authenticate
     const reservedRoom = await Reserve.findOne({
-      where: { userId: 4 },
+      where: { id: reserveId },
       include: [
         {
           model: Property,
-          attributes: ['propertyName'],
+
           include: { model: PropertyImage, attributes: ['propertyImage'] },
         },
         {
@@ -49,7 +51,7 @@ exports.getReserveRoom = async (req, res, next) => {
         },
       ],
     })
-    // console.log(reservedRoom)
+    console.log(reservedRoom)
 
     res.status(201).json({ room: reservedRoom })
   } catch (err) {
@@ -58,11 +60,11 @@ exports.getReserveRoom = async (req, res, next) => {
 }
 
 exports.deleteReserve = async (req, res, next) => {
+  const { reserveId } = req.body
   try {
     await Reserve.destroy({
       where: {
-        // userId: req.user.id,
-        userId: 4,
+        id: reserveId
       },
     })
     return res.status(200).json(req.omise)

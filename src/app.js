@@ -15,12 +15,16 @@ const propertyRoute = require('./route/propertyRoute');
 const bookingRoute = require('./route/bookingRoute');
 
 const hostRoute = require('./route/hostRoute');
+const propertyTypeRoute = require('./route/propertyTypeRoute');
+const facilityRoute = require('./route/facilityRoute');
+const categoryRoute = require('./route/categoryRoute');
+
 const authenticate = require('./middlewares/authenticate');
 
 const app = express();
 
 if (process.env.NODE_ENV === 'development') {
-	app.use(morgan('dev'));
+  app.use(morgan('dev'));
 }
 
 app.use(cors());
@@ -29,7 +33,6 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', authRoute);
 app.use('/host', hostRoute);
-//app.use ('/host',authenticate ,hostRoute)
 app.use('/property', propertyRoute);
 
 app.use('/rooms', authenticate, reserveRoute);
@@ -37,6 +40,10 @@ app.use('/payment', authenticate, paymentRoute);
 app.use('/booking', authenticate, bookingRoute);
 
 // app.use('/payment', authenticate, paymentRoute);
+
+app.use('/property-type', propertyTypeRoute);
+app.use('/facility', facilityRoute);
+app.use('/category', categoryRoute);
 
 app.use(notFound);
 app.use(error);

@@ -13,6 +13,7 @@ const reserveRoute = require('./route/reserveRoute');
 const paymentRoute = require('./route/paymentRoute');
 const propertyRoute = require('./route/propertyRoute');
 const bookingRoute = require('./route/bookingRoute');
+const reviewRoute = require('./route/reviewRoute');
 
 const hostRoute = require('./route/hostRoute');
 const authenticate = require('./middlewares/authenticate');
@@ -35,6 +36,7 @@ app.use('/property', propertyRoute);
 app.use('/rooms', authenticate, reserveRoute);
 app.use('/payment', authenticate, paymentRoute);
 app.use('/booking', authenticate, bookingRoute);
+app.use('/review', reviewRoute);
 
 // app.use('/payment', authenticate, paymentRoute);
 

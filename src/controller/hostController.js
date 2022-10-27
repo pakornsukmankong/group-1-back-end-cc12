@@ -8,7 +8,8 @@ const {
   PropertyImage,
   Category,
   PropertyType,
-  User
+  User,
+  Facility
 } = require('../models');
 const { HOST_ACTIVE } = require('../config/constants');
 
@@ -398,7 +399,12 @@ exports.getPreview = async (req, res, next) => {
             model: Category
           }
         },
-        { model: PropertyFacility },
+        {
+          model: PropertyFacility,
+          include: {
+            model: Facility
+          }
+        },
         { model: PropertyImage }
       ]
     });

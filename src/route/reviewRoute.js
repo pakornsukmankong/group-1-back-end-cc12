@@ -5,7 +5,7 @@ const authenticate = require('../middlewares/authenticate');
 const router = express.Router();
 
 router.post(
-	'/createReview/:propertyId',
+	'/createreview/:propertyId',
 	authenticate,
 	reviewController.createReview
 );

@@ -30,5 +30,6 @@ router.patch(
 );
 router.patch('/update/price', authenticate, hostController.updatePrice);
 router.patch('/update/preview', authenticate, hostController.savePreview);
+router.get('/preview', authenticate, hostController.getPreview);
 
 module.exports = router;

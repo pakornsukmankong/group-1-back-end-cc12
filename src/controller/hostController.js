@@ -5,7 +5,10 @@ const {
   Property,
   PropertyCategory,
   PropertyFacility,
-  PropertyImage
+  PropertyImage,
+  Category,
+  PropertyType,
+  User
 } = require('../models');
 const { HOST_ACTIVE } = require('../config/constants');
 
@@ -65,6 +68,10 @@ exports.updateCategory = async (req, res, next) => {
       throw new AppError('list is invalid', 400);
     }
 
+    if (!propertyId || !Number(propertyId)) {
+      throw new AppError('propertyId is invalid', 400);
+    }
+
     const findPropertyId = await PropertyCategory.findAll({
       where: {
         propertyId
@@ -87,7 +94,7 @@ exports.updateCategory = async (req, res, next) => {
         };
       });
       const resList = await PropertyCategory.bulkCreate(dataList);
-      res.status(200).json({
+      res.status(201).json({
         message: `Update category Success by propertyId:${propertyId}`,
         data: resList
       });
@@ -215,7 +222,7 @@ exports.updateFacility = async (req, res, next) => {
         };
       });
       const resList = await PropertyFacility.bulkCreate(dataList);
-      res.status(200).json({
+      res.status(201).json({
         message: `Update facility Success by propertyId:${propertyId}`,
         data: resList
       });
@@ -248,7 +255,7 @@ exports.updatePhoto = async (req, res, next) => {
       let uploadResponses = await Promise.all(multiplePhotoPromise);
 
       const resList = await PropertyImage.bulkCreate(uploadResponses);
-      res.status(200).json({
+      res.status(201).json({
         data: resList
       });
     } else {
@@ -267,8 +274,6 @@ exports.updateTitle = async (req, res, next) => {
     if (!title || !String(title)) {
       throw new AppError('title is invalid', 400);
     }
-
-    console.log('propertyId', propertyId);
 
     const data = {
       propertyName: title
@@ -372,6 +377,33 @@ exports.savePreview = async (req, res, next) => {
     res.status(201).json({
       message: `Update save preview success by propertyId:${propertyId}`
     });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getPreview = async (req, res, next) => {
+  try {
+    const { id: propertyId } = req.query;
+    const host = await Property.findAll({
+      // raw: true,
+      where: { id: propertyId, userHostId: req.user.id },
+      attributes: { exclude: ['userHostId', 'propertyTypeId'] },
+      include: [
+        { model: User },
+        { model: PropertyType },
+        {
+          model: PropertyCategory,
+          include: {
+            model: Category
+          }
+        },
+        { model: PropertyFacility },
+        { model: PropertyImage }
+      ]
+    });
+
+    res.status(200).json({ data: host });
   } catch (err) {
     next(err);
   }

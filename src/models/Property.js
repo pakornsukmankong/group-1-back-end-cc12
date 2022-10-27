@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       address: DataTypes.STRING,
       latitude: DataTypes.STRING,
       longitude: DataTypes.STRING,
+      guestQty: DataTypes.STRING,
       bedQty: DataTypes.INTEGER,
       bedRoomQty: DataTypes.INTEGER,
       bathRoomQty: DataTypes.INTEGER,
@@ -71,6 +72,14 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Property.hasMany(db.PropertyFacility, {
+      foreignKey: {
+        name: 'propertyId',
+        allowNull: false
+      },
+      onDelete: 'CASCADE'
+    });
+
+    Property.hasMany(db.PropertyCategory, {
       foreignKey: {
         name: 'propertyId',
         allowNull: false

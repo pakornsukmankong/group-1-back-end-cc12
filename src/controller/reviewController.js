@@ -5,8 +5,8 @@ const { Op } = require('sequelize');
 exports.createReview = async (req, res, next) => {
 	try {
 		const { propertyId } = req.params;
-
 		const { comment } = req.body;
+
 		if (!comment || !String(comment)) {
 			throw new AppError('comment is invalid', 400);
 		}
@@ -19,10 +19,12 @@ exports.createReview = async (req, res, next) => {
 		}
 
 		const checkReview = await PropertyReview.findOne({
-			where: { propertyId: propertyId },
+			where: {
+				[Op.and]: [{ propertyId: propertyId }, { userId: req.user.id }],
+			},
 		});
 
-		if (checkReview.userId === req.user.id) {
+		if (checkReview) {
 			throw new AppError('you already reviewed', 400);
 		}
 		const review = await PropertyReview.create({
@@ -44,7 +46,7 @@ exports.getAllReviewByPropertyId = async (req, res, next) => {
 
 		const review = await PropertyReview.findAll({
 			where: { propertyId },
-			attributes: { exclude: ['userHostId', 'propertyId', 'bookingId'] },
+			// attributes: { exclude: ['userHostId', 'propertyId', 'bookingId'] },
 			include: { model: User, attributes: { exclude: ['password'] } },
 		});
 		res.status(201).json({ review });

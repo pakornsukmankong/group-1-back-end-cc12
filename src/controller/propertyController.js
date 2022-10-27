@@ -4,12 +4,14 @@ const {
 	PropertyType,
 	PropertyImage,
 	Wishlist,
+	PropertyFacility,
+	Facility,
 } = require('../models');
 
 exports.getAllProperty = async (req, res, next) => {
 	try {
 		const property = await Property.findAll({
-			attributes: { exclude: ['userHostId', 'propertyTypeId'] },
+			// attributes: { exclude: ['userHostId', 'propertyTypeId'] },
 			include: [
 				{
 					model: User,
@@ -32,7 +34,6 @@ exports.getProperty = async (req, res, next) => {
 
 		const property = await Property.findOne({
 			where: { id },
-			attributes: { exclude: ['userHostId', 'propertyTypeId'] },
 			include: [
 				{
 					model: User,
@@ -40,6 +41,14 @@ exports.getProperty = async (req, res, next) => {
 				},
 				{ model: PropertyType },
 				{ model: PropertyImage },
+				{
+					model: PropertyFacility,
+					include: [
+						{
+							model: Facility,
+						},
+					],
+				},
 			],
 		});
 		res.status(201).json({ property });

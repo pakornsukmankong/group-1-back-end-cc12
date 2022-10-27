@@ -15,7 +15,7 @@ exports.createBook = async (req, res, next) => {
 				'propertyId',
 			],
 		});
-		console.log(reservedRoom);
+		// console.log(reservedRoom);
 		const { guestsCount, checkInDate, checkOutDate, amountPaid, propertyId } =
 			reservedRoom;
 		const paymentInfo = req.tokenOmise;

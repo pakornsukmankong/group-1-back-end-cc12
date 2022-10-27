@@ -65,11 +65,31 @@ const bcrypt = require('bcryptjs');
 
 // const propertyTypeSeed = async () => {
 // 	const propertyTypeData = [
-// 		{ propertyTypeName: 'villa', propertyTypeIconImage: 'icon villa' },
-// 		{ propertyTypeName: 'Design', propertyTypeIconImage: 'icon Design' },
-// 		{ propertyTypeName: 'Beach', propertyTypeIconImage: 'icon Beach' },
-// 		{ propertyTypeName: 'Lake', propertyTypeIconImage: 'icon Lake' },
-// 		{ propertyTypeName: 'Castile', propertyTypeIconImage: 'icon Castile' },
+// 		{
+// 			propertyTypeName: 'villa',
+// 			propertyTypeIconImage:
+// 				'https://a0.muscache.com/pictures/3b1eb541-46d9-4bef-abc4-c37d77e3c21b.jpg',
+// 		},
+// 		{
+// 			propertyTypeName: 'Design',
+// 			propertyTypeIconImage:
+// 				'https://a0.muscache.com/pictures/50861fca-582c-4bcc-89d3-857fb7ca6528.jpg',
+// 		},
+// 		{
+// 			propertyTypeName: 'Beach',
+// 			propertyTypeIconImage:
+// 				'https://a0.muscache.com/pictures/10ce1091-c854-40f3-a2fb-defc2995bcaf.jpg',
+// 		},
+// 		{
+// 			propertyTypeName: 'Lake',
+// 			propertyTypeIconImage:
+// 				'https://a0.muscache.com/pictures/a4634ca6-1407-4864-ab97-6e141967d782.jpg',
+// 		},
+// 		{
+// 			propertyTypeName: 'Castile',
+// 			propertyTypeIconImage:
+// 				'https://a0.muscache.com/pictures/1b6a8b70-a3b6-48b5-88e1-2243d9172c06.jpg',
+// 		},
 // 	];
 // 	let res = await PropertyType.bulkCreate(propertyTypeData);
 // 	console.log(res);
@@ -89,7 +109,7 @@ const bcrypt = require('bcryptjs');
 // 			bedQty: '8',
 // 			bedRoomQty: '8',
 // 			bathRoomQty: '10',
-// 			pricePerDate: '131131',
+// 			pricePerDate: '1500',
 // 			roomAvaliable: '1',
 // 			userHostId: 1,
 // 			propertyTypeId: 1,
@@ -200,11 +220,31 @@ const bcrypt = require('bcryptjs');
 
 // const facilitySeed = async () => {
 // 	const facilityData = [
-// 		{ facilityName: 'Free parking on premises', facilityIconImage: 'parking' },
-// 		{ facilityName: 'Wifi', facilityIconImage: 'Wifi' },
-// 		{ facilityName: 'Pets allowed', facilityIconImage: 'Pets allowed' },
-// 		{ facilityName: 'EV charger', facilityIconImage: 'EV charger' },
-// 		{ facilityName: 'Kitchen', facilityIconImage: 'Kitchen' },
+// 		{
+// 			facilityName: 'Free parking on premises',
+// 			facilityIconImage:
+// 				'https://cdn-icons-png.flaticon.com/512/768/768960.png',
+// 		},
+// 		{
+// 			facilityName: 'Wifi',
+// 			facilityIconImage:
+// 				'https://cdn-icons-png.flaticon.com/512/3287/3287922.png',
+// 		},
+// 		{
+// 			facilityName: 'Pets allowed',
+// 			facilityIconImage:
+// 				'https://cdn-icons-png.flaticon.com/512/1076/1076877.png',
+// 		},
+// 		{
+// 			facilityName: 'EV charger',
+// 			facilityIconImage:
+// 				'https://cdn-icons-png.flaticon.com/512/7030/7030596.png',
+// 		},
+// 		{
+// 			facilityName: 'Kitchen',
+// 			facilityIconImage:
+// 				'https://cdn-icons-png.flaticon.com/512/1839/1839736.png',
+// 		},
 // 	];
 // 	let res = await Facility.bulkCreate(facilityData);
 // 	console.log(res);
@@ -348,10 +388,32 @@ const bcrypt = require('bcryptjs');
 // const PropertyReviewSeed = async () => {
 // 	const PropertyReviewData = [
 // 		{ comment: 'very good', propertyId: 1, userId: 1, bookingId: 1 },
-// 		{ comment: 'very good', propertyId: 2, userId: 2, bookingId: 2 },
-// 		{ comment: 'very good', propertyId: 3, userId: 3, bookingId: 3 },
-// 		{ comment: 'very good', propertyId: 4, userId: 4, bookingId: 4 },
-// 		{ comment: 'very good', propertyId: 5, userId: 5, bookingId: 5 },
+// 		{
+// 			comment: 'Lovely cozy place. 👍',
+// 			propertyId: 2,
+// 			userId: 2,
+// 			bookingId: 2,
+// 		},
+// 		{
+// 			comment:
+// 				'Very nice and clean place. Facilities are complemented. Recommend this place.',
+// 			propertyId: 3,
+// 			userId: 3,
+// 			bookingId: 3,
+// 		},
+// 		{
+// 			comment:
+// 				'It is a great apartment. Enjoyed staying here and the view is also very good. Definitely recommended for 3 people',
+// 			propertyId: 4,
+// 			userId: 4,
+// 			bookingId: 4,
+// 		},
+// 		{
+// 			comment: 'Good place and location. Room is good.',
+// 			propertyId: 5,
+// 			userId: 5,
+// 			bookingId: 5,
+// 		},
 // 	];
 // 	let res = await PropertyReview.bulkCreate(PropertyReviewData);
 // 	console.log(res);

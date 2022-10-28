@@ -48,6 +48,7 @@ exports.getAllReviewByPropertyId = async (req, res, next) => {
 			where: { propertyId },
 			// attributes: { exclude: ['userHostId', 'propertyId', 'bookingId'] },
 			include: { model: User, attributes: { exclude: ['password'] } },
+			order:[['createdAt', 'DESC']],
 		});
 		res.status(201).json({ review });
 	} catch (err) {

@@ -1,8 +1,8 @@
-const { Reserve, Property, PropertyImage, User } = require('../models')
+const { Reserve, Property, PropertyImage, User } = require('../models');
 
 exports.createReserve = async (req, res, next) => {
   try {
-    const propertyId = req.params.propertyId
+    const { propertyId } = req.params;
     const {
       pricePerDate,
       guestsCount,
@@ -11,7 +11,7 @@ exports.createReserve = async (req, res, next) => {
       serviceFees,
       checkInDate,
       checkOutDate,
-    } = req.body
+    } = req.body;
 
     const data = {
       userId: req.user.id, // req.user.id from authenticate
@@ -23,17 +23,17 @@ exports.createReserve = async (req, res, next) => {
       serviceFees,
       checkInDate,
       checkOutDate,
-    }
+    };
 
-    const newReserve = await Reserve.create(data)
-    res.status(201).json({ newReserve })
+    const newReserve = await Reserve.create(data);
+    res.status(201).json({ newReserve });
   } catch (err) {
-    next(err)
+    next(err);
   }
-}
+};
 
 exports.getReserveRoom = async (req, res, next) => {
-  const { reserveId } = req.params
+  const { reserveId } = req.params;
 
   try {
     // const userId = req.user.id // from authenticate
@@ -50,25 +50,25 @@ exports.getReserveRoom = async (req, res, next) => {
           attributes: { exclude: 'password' },
         },
       ],
-    })
-    console.log(reservedRoom)
+    });
+    console.log(reservedRoom);
 
-    res.status(201).json({ room: reservedRoom })
+    res.status(201).json({ room: reservedRoom });
   } catch (err) {
-    next(err)
+    next(err);
   }
-}
+};
 
 exports.deleteReserve = async (req, res, next) => {
-  const { reserveId } = req.body
+  const { reserveId } = req.body;
   try {
     await Reserve.destroy({
       where: {
-        id: reserveId
+        id: reserveId,
       },
-    })
-    return res.status(200).json(req.omise)
+    });
+    return res.status(200).json(req.omise);
   } catch (err) {
-    next(err)
+    next(err);
   }
-}
+};

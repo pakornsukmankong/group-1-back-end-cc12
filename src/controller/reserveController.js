@@ -36,7 +36,6 @@ exports.getReserveRoom = async (req, res, next) => {
   const { reserveId } = req.params;
 
   try {
-    // const userId = req.user.id // from authenticate
     const reservedRoom = await Reserve.findOne({
       where: { id: reserveId },
       include: [

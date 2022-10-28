@@ -3,3 +3,5 @@
 .env
 
 /src/config/config.json
+
+/public/images

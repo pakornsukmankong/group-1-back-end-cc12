@@ -163,16 +163,32 @@ exports.getMe = async (req, res) => {
 };
 
 exports.loginWithEmail = async (req, res, next) => {
-	const { email } = req.body;
-	console.log(email);
 
 	try {
-		const user = await User.findOne({ where: { email: email } });
-		if (user) {
-			const token = genToken({ id: user.id });
-			return res.status(200).json({ token });
+		const { email, password } = req.body;
+		console.log(req.body);
+
+		if (typeof email !== 'string') {
+			throw new AppError('email address or password is invalid', 400);
 		}
-		res.status(400).json({ message: 'Invalid Credential' });
+
+		const user = await User.findOne({
+			where: { email },
+		});
+
+		if (!user) {
+			// throw new AppError('email address or password is invalid', 400);
+			return res.status(200).json({ msg: 'notRegister' });
+		}
+
+		const isCorrect = await bcrypt.compare(password, user.password);
+		if (!isCorrect) {
+			throw new AppError('email address or password is invalid', 400);
+		}
+
+		const token = genToken({ id: user.id });
+		return res.status(200).json({ token });
+
 	} catch (err) {
 		next(err);
 	}

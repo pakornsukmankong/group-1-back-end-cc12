@@ -1,4 +1,10 @@
-const { Reserve, Property, PropertyImage, User } = require('../models');
+const {
+  Reserve,
+  Property,
+  PropertyImage,
+  User,
+  Booking,
+} = require('../models');
 
 exports.createReserve = async (req, res, next) => {
   try {
@@ -67,6 +73,21 @@ exports.deleteReserve = async (req, res, next) => {
       },
     });
     return res.status(200).json(req.omise);
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getStatusBookingByPropertyId = async (req, res, next) => {
+  try {
+    const { propertyId } = req.params;
+    const propertyBooking = await Booking.findAll({
+      where: { propertyId },
+      attributes: { exclude: 'paymentInfo' },
+      order: [['checkOutDate', 'DESC']],
+    });
+    const recentPropertyBooking = propertyBooking[0];
+    res.status(200).json({ recentPropertyBooking });
   } catch (err) {
     next(err);
   }

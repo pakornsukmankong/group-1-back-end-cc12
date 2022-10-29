@@ -163,6 +163,7 @@ exports.getMe = async (req, res) => {
 };
 
 exports.loginWithEmail = async (req, res, next) => {
+
 	try {
 		const { email, password } = req.body;
 		console.log(req.body);
@@ -187,6 +188,7 @@ exports.loginWithEmail = async (req, res, next) => {
 
 		const token = genToken({ id: user.id });
 		return res.status(200).json({ token });
+
 	} catch (err) {
 		next(err);
 	}

@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const { Op } = require('sequelize');
 
 const { HOST_ACTIVE } = require('../config/constants');
 const {
@@ -116,14 +116,31 @@ exports.toggleWishList = async (req, res, next) => {
 
 exports.getPropertyByCategory = async (req, res, next) => {
   try {
-    const { id: categoryId } = req.query;
+    const { id: categoryId, search: textSearch } = req.query;
+    const searchQuery = textSearch
+      ? {
+          propertyName: {
+            [Op.like]: `%${textSearch}%`
+          }
+        }
+      : null;
+
+    const categoryQuery = categoryId
+      ? {
+          categoryId
+        }
+      : null;
+
     const property = await Property.findAll({
-      where: { hostStatus: HOST_ACTIVE },
+      where: {
+        hostStatus: HOST_ACTIVE,
+        ...searchQuery
+      },
       order: [['createdAt', 'DESC']],
       include: [
         {
           model: PropertyCategory,
-          where: { categoryId }
+          where: { ...categoryQuery }
         },
         {
           model: User,

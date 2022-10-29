@@ -5,6 +5,7 @@ const {
   User,
   Booking,
 } = require('../models');
+const AppError = require('../utils/appError');
 
 exports.createReserve = async (req, res, next) => {
   try {
@@ -31,8 +32,24 @@ exports.createReserve = async (req, res, next) => {
       checkOutDate,
     };
 
+    const findAllBooking = await Booking.findAll({where: {propertyId, checkInDate: new Date(data.checkInDate)}})
+
+    findAllBooking.map((item) => {
+      const checkDate = new Date(data.checkInDate).getTime()
+      const startDate = new Date(item.checkInDate).getTime()
+      const endDate = new Date(item.checkOutDate).getTime()
+
+      // console.log("\n\n\n checkDate" , checkDate);
+      // console.log("\n\n\n startDate" , startDate);
+      // console.log("\n\n\n endDate" , endDate);
+
+      if (checkDate >= startDate && checkDate <= endDate){
+        throw new AppError('this date already booking',400)
+      }
+    })
+    
     const newReserve = await Reserve.create(data);
-    res.status(201).json({ newReserve });
+    res.status(201).json({ newReserve , findAllBooking });
   } catch (err) {
     next(err);
   }

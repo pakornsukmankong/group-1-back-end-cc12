@@ -1,15 +1,15 @@
 const {
-  User,
-  Property,
-  PropertyType,
-  PropertyImage,
-  Facility,
-  PropertyFacility,
-  Reserve,
-  Booking,
-  PropertyReview,
-  Wishlist,
-  Category
+	User,
+	Property,
+	PropertyType,
+	PropertyImage,
+	Facility,
+	PropertyFacility,
+	Reserve,
+	Booking,
+	PropertyReview,
+	Wishlist,
+	Category,
 } = require('../models');
 const bcrypt = require('bcryptjs');
 
@@ -66,11 +66,31 @@ const bcrypt = require('bcryptjs');
 
 // const propertyTypeSeed = async () => {
 // 	const propertyTypeData = [
-// 		{ propertyTypeName: 'villa', propertyTypeIconImage: 'icon villa' },
-// 		{ propertyTypeName: 'Design', propertyTypeIconImage: 'icon Design' },
-// 		{ propertyTypeName: 'Beach', propertyTypeIconImage: 'icon Beach' },
-// 		{ propertyTypeName: 'Lake', propertyTypeIconImage: 'icon Lake' },
-// 		{ propertyTypeName: 'Castile', propertyTypeIconImage: 'icon Castile' },
+// 		{
+// 			propertyTypeName: 'villa',
+// 			propertyTypeIconImage:
+// 				'https://a0.muscache.com/pictures/3b1eb541-46d9-4bef-abc4-c37d77e3c21b.jpg',
+// 		},
+// 		{
+// 			propertyTypeName: 'Design',
+// 			propertyTypeIconImage:
+// 				'https://a0.muscache.com/pictures/50861fca-582c-4bcc-89d3-857fb7ca6528.jpg',
+// 		},
+// 		{
+// 			propertyTypeName: 'Beach',
+// 			propertyTypeIconImage:
+// 				'https://a0.muscache.com/pictures/10ce1091-c854-40f3-a2fb-defc2995bcaf.jpg',
+// 		},
+// 		{
+// 			propertyTypeName: 'Lake',
+// 			propertyTypeIconImage:
+// 				'https://a0.muscache.com/pictures/a4634ca6-1407-4864-ab97-6e141967d782.jpg',
+// 		},
+// 		{
+// 			propertyTypeName: 'Castile',
+// 			propertyTypeIconImage:
+// 				'https://a0.muscache.com/pictures/1b6a8b70-a3b6-48b5-88e1-2243d9172c06.jpg',
+// 		},
 // 	];
 // 	let res = await PropertyType.bulkCreate(propertyTypeData);
 // 	console.log(res);
@@ -90,7 +110,7 @@ const bcrypt = require('bcryptjs');
 // 			bedQty: '8',
 // 			bedRoomQty: '8',
 // 			bathRoomQty: '10',
-// 			pricePerDate: '131131',
+// 			pricePerDate: '1500',
 // 			roomAvaliable: '1',
 // 			userHostId: 1,
 // 			propertyTypeId: 1,
@@ -201,11 +221,31 @@ const bcrypt = require('bcryptjs');
 
 // const facilitySeed = async () => {
 // 	const facilityData = [
-// 		{ facilityName: 'Free parking on premises', facilityIconImage: 'parking' },
-// 		{ facilityName: 'Wifi', facilityIconImage: 'Wifi' },
-// 		{ facilityName: 'Pets allowed', facilityIconImage: 'Pets allowed' },
-// 		{ facilityName: 'EV charger', facilityIconImage: 'EV charger' },
-// 		{ facilityName: 'Kitchen', facilityIconImage: 'Kitchen' },
+// 		{
+// 			facilityName: 'Free parking on premises',
+// 			facilityIconImage:
+// 				'https://cdn-icons-png.flaticon.com/512/768/768960.png',
+// 		},
+// 		{
+// 			facilityName: 'Wifi',
+// 			facilityIconImage:
+// 				'https://cdn-icons-png.flaticon.com/512/3287/3287922.png',
+// 		},
+// 		{
+// 			facilityName: 'Pets allowed',
+// 			facilityIconImage:
+// 				'https://cdn-icons-png.flaticon.com/512/1076/1076877.png',
+// 		},
+// 		{
+// 			facilityName: 'EV charger',
+// 			facilityIconImage:
+// 				'https://cdn-icons-png.flaticon.com/512/7030/7030596.png',
+// 		},
+// 		{
+// 			facilityName: 'Kitchen',
+// 			facilityIconImage:
+// 				'https://cdn-icons-png.flaticon.com/512/1839/1839736.png',
+// 		},
 // 	];
 // 	let res = await Facility.bulkCreate(facilityData);
 // 	console.log(res);
@@ -349,10 +389,32 @@ const bcrypt = require('bcryptjs');
 // const PropertyReviewSeed = async () => {
 // 	const PropertyReviewData = [
 // 		{ comment: 'very good', propertyId: 1, userId: 1, bookingId: 1 },
-// 		{ comment: 'very good', propertyId: 2, userId: 2, bookingId: 2 },
-// 		{ comment: 'very good', propertyId: 3, userId: 3, bookingId: 3 },
-// 		{ comment: 'very good', propertyId: 4, userId: 4, bookingId: 4 },
-// 		{ comment: 'very good', propertyId: 5, userId: 5, bookingId: 5 },
+// 		{
+// 			comment: 'Lovely cozy place. 👍',
+// 			propertyId: 2,
+// 			userId: 2,
+// 			bookingId: 2,
+// 		},
+// 		{
+// 			comment:
+// 				'Very nice and clean place. Facilities are complemented. Recommend this place.',
+// 			propertyId: 3,
+// 			userId: 3,
+// 			bookingId: 3,
+// 		},
+// 		{
+// 			comment:
+// 				'It is a great apartment. Enjoyed staying here and the view is also very good. Definitely recommended for 3 people',
+// 			propertyId: 4,
+// 			userId: 4,
+// 			bookingId: 4,
+// 		},
+// 		{
+// 			comment: 'Good place and location. Room is good.',
+// 			propertyId: 5,
+// 			userId: 5,
+// 			bookingId: 5,
+// 		},
 // 	];
 // 	let res = await PropertyReview.bulkCreate(PropertyReviewData);
 // 	console.log(res);
@@ -389,124 +451,124 @@ const bcrypt = require('bcryptjs');
 // };
 // wishlistSeed();
 
-const InitDataBeforeCreateHostSeed = async () => {
-  const hashpassword = await bcrypt.hash('123456789', 12);
-  const userData = [
-    {
-      firstName: 'May',
-      lastName: 'ApinYa',
-      email: 'May2@gmail.com',
-      password: '123456789',
-      phoneNumber: '+66836637502'
-    }
-  ];
+// const InitDataBeforeCreateHostSeed = async () => {
+//   const hashpassword = await bcrypt.hash('123456789', 12);
+//   const userData = [
+//     {
+//       firstName: 'May',
+//       lastName: 'ApinYa',
+//       email: 'May2@gmail.com',
+//       password: '123456789',
+//       phoneNumber: '+66836637502'
+//     }
+//   ];
 
-  const categoryData = [
-    {
-      categoryName: 'Creative spaces',
-      categoryIconImage:
-        'https://a0.muscache.com/pictures/8a43b8c6-7eb4-421c-b3a9-1bd9fcb26622.jpg'
-    },
-    {
-      categoryName: 'Design',
-      categoryIconImage:
-        'https://a0.muscache.com/pictures/50861fca-582c-4bcc-89d3-857fb7ca6528.jpg'
-    },
-    {
-      categoryName: 'Amazing views',
-      categoryIconImage:
-        'https://a0.muscache.com/pictures/3b1eb541-46d9-4bef-abc4-c37d77e3c21b.jpg'
-    },
-    {
-      categoryName: 'Beachfront',
-      categoryIconImage:
-        'https://a0.muscache.com/pictures/bcd1adc0-5cee-4d7a-85ec-f6730b0f8d0c.jpg'
-    },
-    {
-      categoryName: 'Castles',
-      categoryIconImage:
-        'https://a0.muscache.com/pictures/1b6a8b70-a3b6-48b5-88e1-2243d9172c06.jpg'
-    },
-    {
-      categoryName: 'Lake',
-      categoryIconImage:
-        'https://a0.muscache.com/pictures/a4634ca6-1407-4864-ab97-6e141967d782.jpg'
-    },
-    {
-      categoryName: 'Beach',
-      categoryIconImage:
-        'https://a0.muscache.com/pictures/10ce1091-c854-40f3-a2fb-defc2995bcaf.jpg'
-    }
-  ];
+//   const categoryData = [
+//     {
+//       categoryName: 'Creative spaces',
+//       categoryIconImage:
+//         'https://a0.muscache.com/pictures/8a43b8c6-7eb4-421c-b3a9-1bd9fcb26622.jpg'
+//     },
+//     {
+//       categoryName: 'Design',
+//       categoryIconImage:
+//         'https://a0.muscache.com/pictures/50861fca-582c-4bcc-89d3-857fb7ca6528.jpg'
+//     },
+//     {
+//       categoryName: 'Amazing views',
+//       categoryIconImage:
+//         'https://a0.muscache.com/pictures/3b1eb541-46d9-4bef-abc4-c37d77e3c21b.jpg'
+//     },
+//     {
+//       categoryName: 'Beachfront',
+//       categoryIconImage:
+//         'https://a0.muscache.com/pictures/bcd1adc0-5cee-4d7a-85ec-f6730b0f8d0c.jpg'
+//     },
+//     {
+//       categoryName: 'Castles',
+//       categoryIconImage:
+//         'https://a0.muscache.com/pictures/1b6a8b70-a3b6-48b5-88e1-2243d9172c06.jpg'
+//     },
+//     {
+//       categoryName: 'Lake',
+//       categoryIconImage:
+//         'https://a0.muscache.com/pictures/a4634ca6-1407-4864-ab97-6e141967d782.jpg'
+//     },
+//     {
+//       categoryName: 'Beach',
+//       categoryIconImage:
+//         'https://a0.muscache.com/pictures/10ce1091-c854-40f3-a2fb-defc2995bcaf.jpg'
+//     }
+//   ];
 
-  const facilityData = [
-    {
-      facilityName: 'Wifi',
-      facilityIconImage: 'fa-solid fa-wifi'
-    },
-    {
-      facilityName: 'TV',
-      facilityIconImage: 'fa-solid fa-tv'
-    },
-    {
-      facilityName: 'Kitchen',
-      facilityIconImage: 'fa-solid fa-kitchen-set'
-    },
-    {
-      facilityName: 'Washer',
-      facilityIconImage: 'fa-solid fa-soap'
-    },
-    {
-      facilityName: 'Free parking on premises',
-      facilityIconImage: 'fa-solid fa-square-parking'
-    },
-    {
-      facilityName: 'Pool',
-      facilityIconImage: 'fa-solid fa-water-ladder'
-    }
-  ];
+//   const facilityData = [
+//     {
+//       facilityName: 'Wifi',
+//       facilityIconImage: 'fa-solid fa-wifi'
+//     },
+//     {
+//       facilityName: 'TV',
+//       facilityIconImage: 'fa-solid fa-tv'
+//     },
+//     {
+//       facilityName: 'Kitchen',
+//       facilityIconImage: 'fa-solid fa-kitchen-set'
+//     },
+//     {
+//       facilityName: 'Washer',
+//       facilityIconImage: 'fa-solid fa-soap'
+//     },
+//     {
+//       facilityName: 'Free parking on premises',
+//       facilityIconImage: 'fa-solid fa-square-parking'
+//     },
+//     {
+//       facilityName: 'Pool',
+//       facilityIconImage: 'fa-solid fa-water-ladder'
+//     }
+//   ];
 
-  const propertyTypeData = [
-    {
-      propertyTypeName: 'Apartment',
-      propertyTypeIconImage:
-        'https://a0.muscache.com/im/pictures/eadbcbdb-d57d-44d9-9a76-665a7a4d1cd7.jpg'
-    },
-    {
-      propertyTypeName: 'House',
-      propertyTypeIconImage:
-        'https://a0.muscache.com/im/pictures/d1af74db-58eb-46bf-b3f5-e42b6c9892db.jpg'
-    },
-    {
-      propertyTypeName: 'Secondary unit',
-      propertyTypeIconImage:
-        'https://a0.muscache.com/im/pictures/32897901-1870-4895-8e23-f08dc0e61750.jpg'
-    },
-    {
-      propertyTypeName: 'Unique space',
-      propertyTypeIconImage:
-        'https://a0.muscache.com/im/pictures/7ad56bb1-ed9f-4dcb-a14c-2523da331b44.jpg'
-    },
-    {
-      propertyTypeName: 'Bed and breakfast',
-      propertyTypeIconImage:
-        'https://a0.muscache.com/im/pictures/d52fb4e7-39a4-46df-9bf9-67e56d35eeca.jpg'
-    },
-    {
-      propertyTypeName: 'Boutique hotel',
-      propertyTypeIconImage:
-        'https://a0.muscache.com/im/pictures/a2c9ad21-b159-4fd2-b417-d810fb23c6a9.jpg'
-    }
-  ];
+//   const propertyTypeData = [
+//     {
+//       propertyTypeName: 'Apartment',
+//       propertyTypeIconImage:
+//         'https://a0.muscache.com/im/pictures/eadbcbdb-d57d-44d9-9a76-665a7a4d1cd7.jpg'
+//     },
+//     {
+//       propertyTypeName: 'House',
+//       propertyTypeIconImage:
+//         'https://a0.muscache.com/im/pictures/d1af74db-58eb-46bf-b3f5-e42b6c9892db.jpg'
+//     },
+//     {
+//       propertyTypeName: 'Secondary unit',
+//       propertyTypeIconImage:
+//         'https://a0.muscache.com/im/pictures/32897901-1870-4895-8e23-f08dc0e61750.jpg'
+//     },
+//     {
+//       propertyTypeName: 'Unique space',
+//       propertyTypeIconImage:
+//         'https://a0.muscache.com/im/pictures/7ad56bb1-ed9f-4dcb-a14c-2523da331b44.jpg'
+//     },
+//     {
+//       propertyTypeName: 'Bed and breakfast',
+//       propertyTypeIconImage:
+//         'https://a0.muscache.com/im/pictures/d52fb4e7-39a4-46df-9bf9-67e56d35eeca.jpg'
+//     },
+//     {
+//       propertyTypeName: 'Boutique hotel',
+//       propertyTypeIconImage:
+//         'https://a0.muscache.com/im/pictures/a2c9ad21-b159-4fd2-b417-d810fb23c6a9.jpg'
+//     }
+//   ];
 
-  // insert data to db;
-  let resUser = await User.bulkCreate(userData);
-  let resCategory = await Category.bulkCreate(categoryData);
-  let resFacility = await Facility.bulkCreate(facilityData);
-  let resPropertyType = await PropertyType.bulkCreate(propertyTypeData);
+//   // insert data to db;
+//   let resUser = await User.bulkCreate(userData);
+//   let resCategory = await Category.bulkCreate(categoryData);
+//   let resFacility = await Facility.bulkCreate(facilityData);
+//   let resPropertyType = await PropertyType.bulkCreate(propertyTypeData);
 
-  //   console.log(res);
-  process.exit(0);
-};
+//   //   console.log(res);
+//   process.exit(0);
+// };
 
-InitDataBeforeCreateHostSeed();
+// InitDataBeforeCreateHostSeed();

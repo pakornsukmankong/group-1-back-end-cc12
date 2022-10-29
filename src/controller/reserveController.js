@@ -32,7 +32,7 @@ exports.createReserve = async (req, res, next) => {
       checkOutDate,
     };
 
-    const findAllBooking = await Booking.findAll({where: {checkInDate: new Date(data.checkInDate)}})
+    const findAllBooking = await Booking.findAll({where: {propertyId, checkInDate: new Date(data.checkInDate)}})
 
     findAllBooking.map((item) => {
       const checkDate = new Date(data.checkInDate).getTime()

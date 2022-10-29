@@ -16,6 +16,7 @@ exports.getAllProperty = async (req, res, next) => {
   try {
     const property = await Property.findAll({
       where: { hostStatus: HOST_ACTIVE },
+      order: [['createdAt', 'DESC']],
       // attributes: { exclude: ['userHostId', 'propertyTypeId'] },
       include: [
         {

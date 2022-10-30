@@ -9,8 +9,11 @@ const {
   Wishlist,
   PropertyFacility,
   Facility,
-  PropertyCategory
+  PropertyCategory,
+  sequelize
 } = require('../models');
+const cloudinary = require('../utils/cloudinary')
+const AppError = require('../utils/appError');
 
 exports.getAllProperty = async (req, res, next) => {
   try {
@@ -83,13 +86,17 @@ exports.getPropertyByUser = async (req, res, next) => {
   }
 };
 
-exports.getWishList = async (req, res) => {
-  const userId = req.user.id;
-  const findWishListByUser = await Wishlist.findAll({
-    where: { userId: userId },
-    include: { model: Property, include: { model: PropertyImage } }
-  });
-  res.status(200).json({ findWishListByUser });
+exports.getWishList = async (req, res,next) => {
+  try{
+    const userId = req.user.id;
+    const findWishListByUser = await Wishlist.findAll({
+      where: { userId: userId },
+      include: { model: Property, include: { model: PropertyImage } }
+    });
+    res.status(200).json({ findWishListByUser });
+  }catch(err) {
+    next(err)
+  }
 };
 
 exports.toggleWishList = async (req, res, next) => {
@@ -112,7 +119,9 @@ exports.toggleWishList = async (req, res, next) => {
     });
 
     return res.status(201).json({ addWishList });
-  } catch (err) {}
+  } catch (err) {
+    next(err)
+  }
 };
 
 exports.getPropertyByCategory = async (req, res, next) => {
@@ -156,3 +165,40 @@ exports.getPropertyByCategory = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.deleteProperty = async(req,res,next) => {
+  let t
+  try{
+    t = await sequelize.transaction();
+    const {propertyId} = req.params
+    const property = await Property.findOne({where: {id: propertyId}})
+
+    if(!property) {
+      throw new AppError('property not found', 400)
+    }
+    if(req.user.id !== property.userHostId) {
+      throw new AppError('no permission to delete', 403)
+    }
+
+    const getPropertyImages = await PropertyImage.findAll({where: {propertyId}})
+    
+    if (getPropertyImages) {
+      const multiplePropertyImagesPromise = getPropertyImages.map(async (image) => {
+        const secureUrl = await cloudinary.getPublicId(image.propertyImage);
+        return {
+          propertyImage: secureUrl,
+          propertyId: propertyId
+        };
+      });
+
+      let uploadResponses = await Promise.all(multiplePropertyImagesPromise);
+
+      console.log(uploadResponses);
+
+    res.status(200).json({getPropertyImages})
+
+    }
+  }catch(err) {
+    next(err)
+  }
+}

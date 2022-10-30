@@ -23,3 +23,7 @@ exports.getPublicId = (url) => {
   const splitSlash = url.split('/');
   return splitSlash[splitSlash.length - 1].split('.')[0];
 };
+
+exports.delete = async(publicId) => {
+  return await cloudinary.uploader.destroy(publicId)
+}

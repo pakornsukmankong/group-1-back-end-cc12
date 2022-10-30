@@ -1,15 +1,15 @@
 const {
-	User,
-	Property,
-	PropertyType,
-	PropertyImage,
-	Facility,
-	PropertyFacility,
-	Reserve,
-	Booking,
-	PropertyReview,
-	Wishlist,
-	Category,
+  User,
+  Property,
+  PropertyType,
+  PropertyImage,
+  Facility,
+  PropertyFacility,
+  Reserve,
+  Booking,
+  PropertyReview,
+  Wishlist,
+  Category
 } = require('../models');
 const bcrypt = require('bcryptjs');
 
@@ -457,7 +457,7 @@ const InitDataBeforeCreateHostSeed = async () => {
     {
       firstName: 'May',
       lastName: 'ApinYa',
-      email: 'May2@gmail.com',
+      email: 'may2@gmail.com',
       password: hashpassword,
       phoneNumber: '+66836637502'
     }
@@ -498,6 +498,31 @@ const InitDataBeforeCreateHostSeed = async () => {
       categoryName: 'Beach',
       categoryIconImage:
         'https://a0.muscache.com/pictures/10ce1091-c854-40f3-a2fb-defc2995bcaf.jpg'
+    },
+    {
+      categoryName: 'Caves',
+      categoryIconImage:
+        'https://a0.muscache.com/pictures/4221e293-4770-4ea8-a4fa-9972158d4004.jpg'
+    },
+    {
+      categoryName: 'Islands',
+      categoryIconImage:
+        'https://a0.muscache.com/pictures/8e507f16-4943-4be9-b707-59bd38d56309.jpg'
+    },
+    {
+      categoryName: 'Towers',
+      categoryIconImage:
+        'https://a0.muscache.com/pictures/d721318f-4752-417d-b4fa-77da3cbc3269.jpg'
+    },
+    {
+      categoryName: 'Campers',
+      categoryIconImage:
+        'https://a0.muscache.com/pictures/31c1d523-cc46-45b3-957a-da76c30c85f9.jpg'
+    },
+    {
+      categoryName: 'National parks',
+      categoryIconImage:
+        'https://a0.muscache.com/pictures/c0a24c04-ce1f-490c-833f-987613930eca.jpg'
     }
   ];
 

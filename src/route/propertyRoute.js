@@ -5,6 +5,7 @@ const authenticate = require('../middlewares/authenticate');
 const router = express.Router();
 
 router.get('/', propertyController.getAllProperty);
+router.get('/category', propertyController.getPropertyByCategory);
 router.get('/findproperty/:id', propertyController.getProperty);
 router.get('/userproperty', authenticate, propertyController.getPropertyByUser);
 

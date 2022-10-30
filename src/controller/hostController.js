@@ -24,24 +24,6 @@ exports.getHostList = async (req, res, next) => {
   }
 };
 
-exports.filterHostByCategory = async (req, res, next) => {
-  try {
-    const { cat: categoryId } = req.query;
-    const host = await PropertyCategory.findAll({
-      where: { categoryId: categoryId },
-      order: [['createdAt', 'DESC']],
-      include: [
-        {
-          model: Property
-        }
-      ]
-    });
-    res.status(200).json({ data: host });
-  } catch (err) {
-    next(err);
-  }
-};
-
 exports.createHost = async (req, res, next) => {
   try {
     const { propertyTypeId } = req.body;

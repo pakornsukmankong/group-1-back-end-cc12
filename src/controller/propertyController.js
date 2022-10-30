@@ -64,8 +64,8 @@ exports.getProperty = async (req, res, next) => {
 };
 
 exports.getPropertyByUser = async (req, res, next) => {
-  try {
-    const propertyUser = await Property.findAll({
+  try {    
+    const property = await Property.findAll({
       where: { userHostId: req.user.id },
       attributes: { exclude: ['userHostId', 'propertyTypeId'] },
       include: [
@@ -77,7 +77,7 @@ exports.getPropertyByUser = async (req, res, next) => {
         { model: PropertyImage }
       ]
     });
-    res.status(201).json({ propertyUser });
+    res.status(201).json({ property });
   } catch (err) {
     next(err);
   }

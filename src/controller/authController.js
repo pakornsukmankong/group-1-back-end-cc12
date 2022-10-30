@@ -163,7 +163,6 @@ exports.getMe = async (req, res) => {
 };
 
 exports.loginWithEmail = async (req, res, next) => {
-
 	try {
 		const { email, password } = req.body;
 		console.log(req.body);
@@ -183,12 +182,11 @@ exports.loginWithEmail = async (req, res, next) => {
 
 		const isCorrect = await bcrypt.compare(password, user.password);
 		if (!isCorrect) {
-			throw new AppError('email address or password is invalid', 400);
+			throw new AppError('password is incorrect', 400);
 		}
 
 		const token = genToken({ id: user.id });
 		return res.status(200).json({ token });
-
 	} catch (err) {
 		next(err);
 	}

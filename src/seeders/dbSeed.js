@@ -592,7 +592,7 @@ const InitDataBeforeCreateHostSeed = async () => {
   let resFacility = await Facility.bulkCreate(facilityData);
   let resPropertyType = await PropertyType.bulkCreate(propertyTypeData);
 
-  //   console.log(res);
+    console.log(res);
   process.exit(0);
 };
 

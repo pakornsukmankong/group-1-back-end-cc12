@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         unique: true
       },
-      description: DataTypes.STRING,
+      description: DataTypes.TEXT,
       address: DataTypes.STRING,
       latitude: DataTypes.STRING,
       longitude: DataTypes.STRING,
